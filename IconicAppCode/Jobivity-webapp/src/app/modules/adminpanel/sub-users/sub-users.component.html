@@ -1,0 +1,258 @@
+<app-admin-navbar></app-admin-navbar>
+<app-admin-sidebar id="basicSidebar"
+  class="pmd-sidebar  sidebar-default pmd-sidebar-slide-push pm d-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons"
+  role="navigation"></app-admin-sidebar>
+<div id="content" class="pmd-content content-area dashboard">
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="component-box">
+            <div class="pmd-card pmd-z-depth-1 shadow-demo pmd-card-custom-view">
+              <div class="pmd-table-card">
+                <div class="row noMargin">
+                  <div class="col-xs-12">
+                    <h3>
+                      <a data-target="#large-dialog" data-toggle="modal"
+                        class="btn pmd-ripple-effect btn-primary PrimaryButton marginB2">
+                        Create
+                      </a>
+                    </h3>
+                    <br>
+                    <br>
+                  </div>
+                  <div class="col-xs-12">
+                    <div class="table-responsive">
+                      <table class="table table-hover MB20 table-bordered" id="table-bootstrap">
+                        <thead>
+                          <tr>
+                            <th class="text-center">Name</th>
+                            <th class="text-center">Email</th>
+                            <th class="text-center">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let user of usersArray; let i = index">
+                            <td class="text-center">{{user.name}}</td>
+                            <td class="text-center">{{user.email}}</td>
+                            <td class="text-center"> 
+                              <a href="javascript:void(0);" (click)="getUserById(user.id)" data-target="#edit-dialog" data-toggle="modal" class="marginR2">
+                              <i class="material-icons grayColor">edit</i>
+                              </a>
+                              <a href="javascript:void(0);" (click)="onclickdata(user.id)" data-target="#delete-dialog"  data-toggle="modal" class="marginR2" >
+                                <i class="material-icons grayColor">delete</i>
+                              </a>
+                          </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Create Sub Admin Model -->
+<div tabindex="-1" class="modal fade" id="large-dialog" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" *ngIf="!modalProgress">
+        <h1>Create User</h1>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="!modalProgress">
+
+          <form [formGroup]="CreateUserForm" (ngSubmit)="createUser()">
+
+            <div class="pmd-card-body">
+              <p ion-text color="danger" class="warning" style="color:red"> {{message}} </p>
+              <div class="form-group">
+                <label for="inputError1" class="control-label pmd-input-group-label">Name</label>
+                <div class="input-group">
+                  <div class="input-group-addon inputIcon">
+                    <i class="material-icons md-dark pmd-sm">perm_identity</i>
+                  </div>
+                  <input formControlName="name" name="name" [(ngModel)]="name" type="text" placeholder="User Name"
+                    class="form-control inputH" id="exampleInputAmount">
+                </div>
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.name.errors.required">Name is required</div>
+                </div>
+
+              </div>
+              <div class="form-group">
+                <label for="inputError1" class="control-label pmd-input-group-label">Email Address</label>
+                <div class="input-group">
+                  <div class="input-group-addon inputIcon">
+                    <i class="material-icons md-dark pmd-sm">perm_identity</i>
+                  </div>
+                  <input formControlName="email" name="email" [(ngModel)]="email" type="text"
+                    placeholder="Email address" class="form-control inputH" id="exampleInputAmount">
+                </div>
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.email.errors.required">Email is required</div>
+                </div>
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.email.errors.pattern">Email should be in correct format</div>
+                </div>
+              </div>
+              <div class="form-group">
+                  <label for="inputError1" class="control-label pmd-input-group-label">User Role</label>
+                  <div class="input-group">
+                    <div class="input-group-addon inputIcon">
+                      <i class="material-icons md-dark pmd-sm">perm_identity</i>
+                    </div>
+                    <select formControlName="user_role" name="user_role"  placeholder="Select User Role" 
+                      class="form-control inputH" id="exampleInputAmount">
+                      <option value="" disabled selected>Select Role</option>
+                      <option value="7"  *ngIf="this.role == 1">Admin</option>
+                      <option value="5">Manager</option>
+                      <option value="6">User</option>
+                      </select>
+                  </div>
+                  <div *ngIf="submitted && f.user_role.errors" class="invalid-feedback warning">
+                    <div *ngIf="f.user_role.errors.required">User Role is required</div>
+                  </div>
+                </div>
+            </div>
+          </form>
+        </div>
+        <div *ngIf="modalProgress">
+          <h1>New user created</h1>
+          <p><label>Name- </label><span class="paddingL10">{{username}}</span></p>
+          <p><label>Password- </label> <input type="text" class="passwordClass" value="password" [readonly]="true"
+              [(ngModel)]="password" #userinput></p>
+          <p><label>Note:</label>This Password will not be displayed again!</p>
+
+          <button class="btn pmd-ripple-effect btn-success btn-clipboard PrimaryButton"
+            (click)="copyInputMessage(userinput)" value="click to copy">Copy password to clipboard</button>
+        </div>
+      </div>
+
+      <div class="pmd-modal-action text-right">
+        <button data-dismiss="modal" type="button"  (click)="remUserCre()" class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline"
+          >
+          DISCARD </button>
+        <button *ngIf="!modalProgress" (click)="createUser()" data-target="#confirm-dialog" data-toggle="modal"
+          type="button" class="btn pmd-ripple-effect btn-success PrimaryButton"> SAVE
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Sub Admin Model -->
+<div tabindex="-1" class="modal fade" id="edit-dialog" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" *ngIf="!editmodalProgress">
+        <h1>Edit User</h1>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="!editmodalProgress" >
+          <form [formGroup]="CreateUserForm" (ngSubmit)="createUser()">
+
+            <div class="pmd-card-body">
+              <p ion-text color="danger" class="warning" style="color:red"> {{message}} </p>
+              <div class="form-group">
+                <label for="inputError1" class="control-label pmd-input-group-label">Name</label>
+                <div class="input-group">
+                  <div class="input-group-addon inputIcon">
+                    <i class="material-icons md-dark pmd-sm">perm_identity</i>
+                  </div>
+                  <input formControlName="name" name="name" [(ngModel)]="name" type="text" placeholder="User Name"
+                    class="form-control inputH" id="exampleInputAmount">
+                </div>
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.name.errors.required">Name is required</div>
+                </div>
+
+              </div>
+              <div class="form-group">
+                <label for="inputError1" class="control-label pmd-input-group-label">Email Address</label>
+                <div class="input-group">
+                  <div class="input-group-addon inputIcon">
+                    <i class="material-icons md-dark pmd-sm">perm_identity</i>
+                  </div>
+                  <input formControlName="email" name="email" [(ngModel)]="email" type="text"
+                    placeholder="Email address" class="form-control inputH" id="exampleInputAmount">
+                </div>
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.email.errors.required">Email is required</div>
+                </div>
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.email.errors.pattern">Email should be in correct format</div>
+                </div>
+              </div>
+              <div class="form-group">
+                  <label for="inputError1" class="control-label pmd-input-group-label">User Role</label>
+                  <div class="input-group">
+                    <div class="input-group-addon inputIcon">
+                      <i class="material-icons md-dark pmd-sm">perm_identity</i>
+                    </div>
+                    <select formControlName="user_role" name="user_role"  placeholder="Select User Role" 
+                      class="form-control inputH" id="exampleInputAmount">
+                      <option value="7"  *ngIf="this.role == 1" >Admin</option>
+                      <option value="5">Manager</option>
+                      <option value="6">User</option>
+                      </select>
+                  </div>
+                  <div *ngIf="submitted && f.user_role.errors" class="invalid-feedback warning">
+                    <div *ngIf="f.user_role.errors.required">User Role is required</div>
+                  </div>
+                </div>
+            </div>
+          </form>
+       </div>
+          <div *ngIf="editmodalProgress">
+              <h1>Updated User</h1>
+              <p><label>Name- </label><span class="paddingL10">{{username}}</span></p>
+              <p><label>Password- </label> <input type="text" class="passwordClass" value="password" [readonly]="true" [(ngModel)]="password" #userinput></p>
+              <p><label>Note:</label>This Password will not be displayed again!</p>
+    
+              <button class="btn pmd-ripple-effect btn-success btn-clipboard PrimaryButton"
+                (click)="copyInputMessage(userinput)" value="click to copy">Copy password to clipboard</button>
+            </div>
+      </div>
+
+      <div class="pmd-modal-action text-right">
+        <button *ngIf="!editmodalProgress" (click)="ResetPassword()" class="btn pmd-ripple-effect btn-success pull-left PrimaryButton">
+          Reset Password </button>
+        <button data-dismiss="modal" type="button"  (click)="remUserCre()" class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline"
+          #closeAddExpenseModal>
+          DISCARD </button>
+        <button data-dismiss="modal" *ngIf="!editmodalProgress" (click)="updateUser()" data-target="#confirm-dialog" data-toggle="modal"  #closeAddExpenseModal
+          type="button" class="btn pmd-ripple-effect btn-success PrimaryButton"> Update User
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete POPUP -->
+
+<div tabindex="-1" class="modal fade" id="delete-dialog" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+  
+          <h2>Are you sure you want to remove the access of the user?</h2>
+        </div>
+        <div class="pmd-modal-action text-right">
+          <button data-dismiss="modal" type="button"  class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline">
+            NO
+          </button>
+          <button data-dismiss="modal" type="button" (click)="removeAccess()" class="btn pmd-ripple-effect btn-success PrimaryButton">
+            YES
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

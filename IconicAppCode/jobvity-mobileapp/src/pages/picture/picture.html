@@ -1,0 +1,11 @@
+<ion-header>
+  <ion-navbar> <ion-title>picture</ion-title> </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <img [src]="lastImage" />
+  <!--{{ lastImage }}-->
+  <button ion-button color="secondary" (click)="presentActionSheet()">
+    Picture
+  </button>
+</ion-content>

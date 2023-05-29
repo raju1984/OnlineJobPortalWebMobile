@@ -1,0 +1,236 @@
+.talentProfile {
+  background-color: #1a2940 !important;
+}
+.SalaryFrom {
+  border-bottom: 1px solid #ccc;
+}
+.SalaryFrom .input-group-addon {
+  background: #ccc;
+  border-radius: 0;
+  padding: 8px;
+}
+.SalaryFrom .form-control {
+  border-bottom: 0;
+  padding: 0 8px;
+  margin-top: 4px;
+}
+.paddingL0 {
+  padding-left: 0;
+}
+.paddingR0 {
+  padding-right: 0;
+}
+.paddingLR0{
+  padding-left: 0;
+  padding-right: 0;
+}
+.marginB16 {
+  margin-bottom: 16px;
+}
+.prt{
+  margin-left: 13px;
+}
+.grayIcon {
+  background-color: transparent!important;
+  /* color: gray; */
+  color: #fd5580;
+  border: none !important;
+  margin-right: -25px;
+}
+
+  .grayIcon:hover, .grayIcon:focus {
+    background-color: transparent !important;
+    border: none !important;
+    color:#f1436f;
+  }
+  .marginB20 {
+    margin-bottom: 20px!important;
+  }
+  .panel-heading {
+    background-color: #e97e7e;
+    background: -webkit-linear-gradient(top, #e97e7e, #e15353);
+    padding: 20px;
+  }
+
+    .panel-heading a {
+      font-size: 1.3em;
+      color: #fff !important;
+    }
+
+    .colorRed {
+      color: red;
+      font-weight: 600;
+    }
+
+  .btn-default {
+    color: #999 !important;
+    background: #fff;
+    background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+    border: 1px solid #9a9a9a !important
+  }
+
+    /*.btn-default:focus,
+    .btn-default:active {
+      color: #d00 !important;
+    }
+
+    .btn-default:active {
+    }*/
+
+  .btn-lg {
+    font-size: 1em;
+  }
+
+  .panel-title a.panelSection[aria-expanded="false"]::after,
+  .panel-title a.panelSection[aria-expanded="true"]::after {
+    content: '\e251';
+    font-family: 'Glyphicons Halflings';
+    float: right;
+    transition: all 0.5s;
+  }
+
+  .panel-title a.panelSection[aria-expanded="true"]::after {
+    content: '\e252';
+    font-family: 'Glyphicons Halflings';
+    transition: all 0.5s;
+  }
+
+  .marginB4em {
+    margin-bottom: 2em;
+  }
+
+  .marginT20 {
+    margin-top: 20px;
+  }
+
+  .take-all-space-you-can {
+    width: 100%;
+  }
+
+  .nav-tabs {
+    border: none;
+  }
+
+    .nav-tabs > li > a {
+      color: #484848 !important;
+      border: 1px solid #9a9a9a;
+      border-radius: 0;
+    }
+
+    .nav-tabs > li.active > a,
+    .nav-tabs > li.active > a:focus,
+    .collapseButton a.active {
+      opacity: 1;
+      color: #fff !important;
+      border: 3px solid #fff !important;
+      -webkit-box-shadow: 0px 0px 5px 5px rgba(199,199,199,1);
+      -moz-box-shadow: 0px 0px 5px 5px rgba(199,199,199,1);
+      box-shadow: 0px 0px 5px 5px rgba(199,199,199,1);
+    }
+    .collapse {
+      background: #fef4f7;
+      margin-bottom: 20px;
+    }
+
+      .nav-tabs > li.active > a::after,
+      .collapseButton a.active::after {
+        content: '\e253';
+        font-family: 'Glyphicons Halflings';
+        transition: all 0.5s;
+        position: absolute;
+        bottom: -10px;
+        left: 45%;
+        font-size: 1.4em;
+      }
+
+  a.chageOption[aria-expanded="true"]::after {
+    content: '\e253';
+        font-family: 'Glyphicons Halflings';
+        transition: all 0.5s;
+        position: absolute;
+        bottom: -3px;
+        left: 45%;
+        font-size: 1.4em;
+  }
+
+  a.chageOption[aria-expanded="true"] {
+    color: #fff !important;
+    border: 3px solid #fff;
+    box-shadow: 0px 0px 5px 5px rgba(199,199,199,1);
+    padding: 13px 0;
+    background: #273677 !important;
+    border: 3px solid #fff !important;
+    font-size: 14px;
+    font-weight: 600;
+
+  }
+  a.chageOption[aria-expanded="false"] {
+    padding: 13px 0;
+    color: #484848 !important;
+    font-weight: 500;
+    opacity: 1;
+  }
+  .equalDirection {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  a.chageOption[aria-expanded="false"]:focus {
+    color: #999 !important;
+    
+  }
+
+  .thumbnail {
+    border: none;
+    margin: 0;
+    padding: 0 25px;
+  }
+
+  .btnSelectTab {
+    padding: 10px 0;
+    text-transform: capitalize;
+    background: #fff!important;
+    opacity: 1;
+  }
+  .height17height17 {
+    height: 17em;
+    overflow: hidden;
+  }
+
+  .search-result {
+    position: absolute;
+    width: calc(100% - 30px);
+    background: #fff;
+    opacity: 1;
+    z-index: 2;
+    border: 1px solid #ccc;
+    left: 15px;
+    right: 15px;
+  }
+
+    .search-result ul {
+      padding: 0;
+      max-height: 30vh;
+      overflow: auto;
+      margin-bottom: 0;
+    }
+
+    .search-result li {
+      cursor: pointer;
+      padding: 10px;
+    }
+
+      .search-result li:hover {
+        background-color: #ebf5ff;
+      }
+
+      .search-result li a {
+        color: #555 !important;
+      }
+
+  .paddingBottom {
+    padding-bottom: 0px
+  }
+  .hideButton{
+    display:none;
+  }

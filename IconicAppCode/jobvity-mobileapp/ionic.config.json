@@ -1,0 +1,25 @@
+{
+  "name": "demo-app",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/careersidekick",
+      "proxyUrl": "https://careersidekick.com/blog/feed/"
+    },
+    {
+      "path": "/workitdaily",
+      "proxyUrl": "https://www.workitdaily.com/blog/feed/"
+    },
+    {
+      "path": "/linkedinaccessToken",
+      "proxyUrl": "https://www.linkedin.com/oauth/v2/accessToken"
+    },
+    {
+      "path": "/linkedinpeople",
+      "proxyUrl": "https://api.linkedin.com/v1"
+    }
+  ]
+}

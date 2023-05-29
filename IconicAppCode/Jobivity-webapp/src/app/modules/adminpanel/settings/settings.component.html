@@ -1,0 +1,82 @@
+<app-admin-navbar></app-admin-navbar>
+<app-admin-sidebar id="basicSidebar"
+  class="pmd-sidebar  sidebar-default pmd-sidebar-slide-push pm d-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons"
+  role="navigation"></app-admin-sidebar>
+<!--content area start-->
+<div id="content" class="pmd-content content-area dashboard">
+
+  <div class="container-fluid">
+    <div class="row" id="card-masonry">
+
+      <div class="col-md-6 col-md-offset-3 padding40">
+        <div class="pmd-card card-default pmd-z-depth">
+          <form [formGroup]="ChangePasswordForm" (ngSubmit)="changePassword()">
+            <div class="pmd-card-body">
+              <p ion-text color="danger" class="warning" style="color:red"> {{message}} </p>
+              <div class="form-group">
+                <label for="inputError1" class="control-label pmd-input-group-label">Current Password </label>
+                <div class="input-group">
+                  <div class="input-group-addon inputIcon">
+                    <i class="material-icons md-dark pmd-sm">perm_identity</i>
+                  </div>
+                  <input formControlName="currentPassword" name="currentPassword" [(ngModel)]="currentPassword"
+                    type="password" placeholder="Current Password" class="form-control inputH" id="exampleInputAmount">
+                </div>
+                <div *ngIf="submitted && f.currentPassword.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.currentPassword.errors.required">Current Password is required</div>
+                </div>
+
+              </div>
+
+              <div class="form-group">
+                <label for="inputError1" class="control-label pmd-input-group-label">New Password</label>
+                <div class="input-group">
+                  <div class="input-group-addon inputIcon">
+                    <i class="material-icons md-dark pmd-sm">lock_outline</i>
+                  </div>
+                  <input required name="password" formControlName="password" [(ngModel)]="password"
+                    placeholder="Password" type="password" class="form-control inputH">
+                </div>
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.password.errors.required">Password is required</div>
+                </div>
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.password.errors.pattern">
+                    Please ensure that your password is atleast 8 characters with at least 1 uppercase, 1 lowercase, 1 number and 1 symbol
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputError1" class="control-label pmd-input-group-label">Confirm New Password</label>
+                <div class="input-group">
+                  <div class="input-group-addon inputIcon">
+                    <i class="material-icons md-dark pmd-sm">lock_outline</i>
+                  </div>
+                  <input required name="cnfpassword" formControlName="cnfpassword" [(ngModel)]="cnfpassword"
+                    placeholder="Password" type="password" class="form-control inputH">
+                </div>
+                <div *ngIf="submitted && f.cnfpassword.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.cnfpassword.errors.required">Confirm Password is required</div>
+                </div>
+                <div class="invalid-feedback warning"
+                  *ngIf="ChangePasswordForm.get('cnfpassword').touched && ChangePasswordForm.errors?.Passinvalid == true"
+                  style="color: red">
+                  Password and Confirm password do not match
+                </div>
+              </div>
+
+            </div>
+            <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
+              <button href="javascript:void(0);" type="submit"
+                class="btn pmd-ripple-effect btn-primary btn-block btn-login PrimaryButton">
+                Submit
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,413 @@
+<app-admin-navbar></app-admin-navbar>
+<app-admin-sidebar id="basicSidebar"
+                   class="pmd-sidebar  sidebar-default pmd-sidebar-slide-push pm d-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons"
+                   role="navigation"></app-admin-sidebar>
+
+
+<!--content area start-->
+<div id="content" class="pmd-content content-area dashboard">
+
+  <div class="container-fluid">
+    <div class="row" id="card-masonry">
+      <div class="col-md-12">
+        <div class="component-box">
+          <div class="pmd-card pmd-card-default pmd-z-depth">
+            <div class="flex">
+              <div *ngIf="tabStatus == 'Active'" class="flexChild">
+                 <img src="{{comp_logo}}" alt=""   style="max-width: 85px; max-height: 85px;"  onError="this.src = 'https://static.thenounproject.com/png/621754-200.png'">
+               </div>	
+              <div class="flexChild1">
+                  <div class="pmd-card-title">
+           
+                      <h2 class="pmd-card-title-text">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="backbutton()">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        <b class="text-capitalize">{{companyName}}</b> ({{registration_no}})
+                      </h2>
+                      <span class="pmd-card-subtitle-text">
+                          <span *ngIf="address1 != undefined">{{address1}}  <br></span>
+                          <span *ngIf="website != undefined "> {{website}}  <br></span>
+                          <span>{{categoryName}} ({{SizeOfCompany}})</span>
+                      </span>
+                    </div>
+                    <div class="pmd-card-actions">
+                      <button type="button" data-target="#edit-dialog" data-toggle="modal" class="btn pmd-ripple-effect btn-primary">Update</button>
+                    </div>
+              </div>
+           </div>
+          </div>
+
+          <div class="pmd-card pmd-z-depth">
+              <div class="pmd-tabs pmd-tabs-bg">
+                <div class="pmd-tab-active-bar"></div>
+                <ul role="tablist" class="nav nav-tabs nav-justified">
+                  <li class="active" role="presentation">
+                    <a data-toggle="tab"
+                       role="tab" aria-controls="home" href="#company-details" >Employees</a>
+                  </li>
+                  <li role="presentation">
+                    <a data-toggle="tab"
+                       role="tab" aria-controls="profile" href="#company-admin">Company Admin</a>
+                  </li>
+                  <li role="presentation">
+                    <a data-toggle="tab"
+                       role="tab" aria-controls="profile" href="#talent-profiles" (click)="getTalentProfileList()">Talent Profiles</a>
+                  </li>
+                  <li role="presentation">
+                    <a data-toggle="tab"
+                       role="tab" aria-controls="profile" href="#job-ads" (click)="getJobAdsList()">Job Ads</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="pmd-card-body">
+                <div class="tab-content">
+                  <!-- Employee List -->
+                  <div role="tabpanel" class="tab-pane active" id="company-details">
+                    <div class="pmd-card pmd-z-depth-1 shadow-demo pmd-card-custom-view">
+                      <div class="pmd-table-card">
+                      <div  *ngIf="employeeList?.length > 0">
+                        <table class="table pmd-table table-hover MB20 table-bordered">
+                          <tbody>
+                            <tr *ngFor="let employee of employeeList">
+                              <td>{{employee.name}}</td>
+                              <td *ngIf="tabStatus != 'Reject'" >{{employee.job_position}}</td>
+                              <td>{{employee.email}}
+                                  <small *ngIf="employee.email_verified == 1">
+                                      <i class="material-icons md-dark pmd-md verefiedEmail iconSize">check_circle</i>
+                                    </small>
+                                    <small *ngIf="employee.email_verified == 0">
+                                      <!-- <i class="material-icons md-dark pmd-md notVarefiedEmail iconSize">warning</i> -->
+                                      <span tooltip tooltip-left>
+                                          <i class="material-icons  md-dark pmd-md notVarefiedEmail iconSize">warning</i>
+                                          <span class="tooltip-content">
+                                              The email address of this user is not verified. <a class="veify-link" href="javascript:void(0);" (click)="sendVerifyMail(employee.id)">(Resend verification email.)</a>
+                                          </span>
+                                      </span>
+                                    </small>
+                              </td>
+                             
+                              <td class="text-right">
+                                <span *ngIf="employee.is_verified==1"> Active </span>
+                                <span *ngIf="employee.is_verified==0"> Pending </span>
+                              </td>
+                             </tr>
+                           </tbody>
+                        </table>
+                      </div>
+                      <div *ngIf="employeeList?.length  == 0" class="flexTop">
+                          <div class="table-noData flexAlignMiddle">No Employees Available Yet
+                          </div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                    <!-- Admin List -->
+                  <div role="tabpanel" class="tab-pane" id="company-admin">
+                    <table  class="table pmd-table table-hover MB20 table-bordered">
+                      <tbody>
+                        <tr role="row" class="odd">
+                          <td>{{adminList.name}}
+                            <span *ngIf="tabStatus == 'Active'">
+                              <span *ngIf="adminList.is_optin_marketing == 1">
+                                  <i class="material-icons md-dark pmd-md verefiedEmail iconSize">check_circle</i>
+                              </span>
+                              <span *ngIf="adminList.is_optin_marketing == 0">
+                                  <i class="material-icons md-dark pmd-md verefiedEmail iconSize">cancel</i>
+                              </span>
+                            </span>
+
+                          </td>
+                          <td *ngIf="tabStatus != 'Reject'">{{adminList.job_position}}</td>
+                          <td>
+                            {{adminList.email}}
+                            <small *ngIf="adminList.email_verified == 1 ; then loggedIn; else loggedOut">
+                              
+                            </small>
+                            <ng-template #loggedIn>
+                              <i class="material-icons md-dark pmd-md verefiedEmail iconSize">check_circle</i>
+                            </ng-template>
+                            <ng-template #loggedOut>
+                              <!-- <i class="material-icons md-dark pmd-md notVarefiedEmail iconSize">warning</i> -->
+                              <span tooltip tooltip-left>
+                                <i class="material-icons  md-dark pmd-md notVarefiedEmail iconSize">warning</i>
+                                <span class="tooltip-content">
+                                    The email address of this user is not verified. <a  class="veify-link" href="javascript:void(0);" (click)="sendVerifyMail(adminList.id)">(Resend verification email.)</a>
+                                </span>
+                            </span>
+                            </ng-template>
+                          </td>
+                          
+                          <td>{{adminList.contact}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                   <!-- Talent List -->
+                  <div role="tabpanel" class="tab-pane" id="talent-profiles">
+                    <div  *ngIf="talentProfileList?.length > 0">
+                    <table  class="table pmd-table table-hover MB20 ">
+                        <thead>
+                            <tr>
+                              <th>Position Title</th>
+                              <th>Department</th>
+                              <th>Created On </th>
+                            </tr>
+                        </thead>
+                      <tbody>
+                        <tr role="row" class="odd" *ngFor = "let data of talentProfileList">
+                          <td>{{data.name}}</td>
+                          <td>{{data.department_name}}</td>
+                          <td>{{data.created_att}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </div>
+                    <div *ngIf="talentProfileList?.length  == 0" class="flexTop">
+                        <div class="table-noData flexAlignMiddle">No Talent Available Yet
+                        </div>
+                      </div>
+                  </div>
+                   <!-- Jobs List -->
+                  <div role="tabpanel" class="tab-pane" id="job-ads">
+                    <div  *ngIf="jobAdsList?.length > 0">
+                    <table  class="table pmd-table table-hover MB20 ">
+                        <thead>
+                            <tr >
+                              <th>Title</th>
+                              <th>Talent Profile</th>
+                              <th>Department</th>
+                              <th>Created On</th>
+                            </tr>
+                        </thead>
+                      <tbody>
+                        <tr role="row" class="odd" *ngFor = "let data of jobAdsList">
+                          <td>{{data.title}}</td>
+                          <td>{{data.talent_name}}</td>
+                          <td>{{data.department_name}}</td>
+                          <td>{{data.created_att}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </div>
+                    <div *ngIf="jobAdsList?.length  == 0" class="flexTop">
+                        <div class="table-noData flexAlignMiddle">No Jobs Available Yet
+                        </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   <!--Update Company Model  -->
+    <div tabindex="-1" class="modal fade" id="edit-dialog" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1>Company Details</h1>
+          </div>
+          <div class="modal-body">
+            <form  [formGroup]="EditCompanyForm">
+                <div class="row noMargin">
+                    <div class="uploadFileClass col-md-6 col-md-offset-3" *ngIf="!certificateView">
+                       <i class="material-icons md-dark pmd-md">file_upload</i>
+                       <h2>  Upload SSM Certificate </h2>
+                       <h4>  Upload your PDF, PNG, or JPEG file here </h4>
+                       <input type="file"  accept="image/png, image/jpeg, .pdf"  (change)="uploadSsm($event)" placeholder="Upload Image" id="upload-card">
+                      
+                         <label class="btn btn-primary PrimaryButton" for="upload-card"><i class="material-icons">file_upload</i></label>
+                       
+                   </div>
+                 
+   
+                   <br>
+                 
+                  <div class="uploadFileClass col-md-6 col-md-offset-3"  *ngIf="certificateView">
+                     <i class="material-icons md-dark pmd-md">insert_drive_file</i>
+                     <h2>
+                      
+                       <a href="{{certificate_url}}" target="blank" download > {{certificate_name}}</a>
+                     </h2>
+                     <input type="file"  accept="image/png, image/jpeg, .pdf"  (change)="uploadSsm($event)" placeholder="Upload Image" id="upload-card">
+                       <label class="btn btn-primary PrimaryButton" for="upload-card"><i class="material-icons">file_upload</i></label>
+                  </div>
+   
+               </div>
+               <div class="form-group">
+                <label for="inputError1" class="control-label">Company Registration Number</label>
+                <input type="text" name="(SSM)No" formControlName="CompanyRegistrationNumber" 
+                placeholder="001234567-P or 123456-78-9876" class="form-control inputH" id="exampleInputAmount">
+                <div *ngIf="submitted && f.ssm_no.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.ssm_no.errors.required">Company Registration Number is required</div>
+                </div>
+            </div>
+              
+              <div class="form-group">
+                <label class="control-label">Company Name</label>
+                <input type="text" formControlName="companyName"  name="companyName" placeholder="Acme Sdn Bhd"
+                       class="form-control inputH" id="exampleInputAmount">
+                <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.companyName.errors.required">Company Name No. is required</div>
+                </div>
+              </div>
+              
+             
+              <div class="form-group">
+                <label class="control-label">Company Address</label>
+                <input type="text" formControlName="CompanyAddress" name="CompanyAddress"  placeholder="Address line 1"
+                       class="form-control inputH" id="exampleInputAmount">
+                  <div *ngIf="submitted && f.CompanyAddress.errors" class="invalid-feedback warning">
+                      <div *ngIf="f.CompanyAddress.errors.required">Company Address is required</div>
+                  </div>
+              </div>
+              <input type="text" formControlName="CompanyAddress1" name="CompanyAddress1" placeholder="Address line 2" 
+                     class="form-control inputH" id="exampleInputAmount">
+
+              <div class="form-group">
+                <label class="control-label">Area</label>
+                <input type="text" formControlName="area" name="area" placeholder="Bukit Jalil"
+                       class="form-control inputH" id="exampleInputAmount">
+                  <div *ngIf="submitted && f.area.errors" class="invalid-feedback warning">
+                      <div *ngIf="f.area.errors.required">Area is required</div>
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Postcode</label>
+                <input type="text" formControlName="Postcode" name="Postcode" placeholder="Postcode"
+                       class="form-control inputH" id="exampleInputAmount">
+                    <div *ngIf="submitted && f.Postcode.errors" class="invalid-feedback warning">
+                        <div *ngIf="f.Postcode.errors.required">Postcode is required</div>
+                    </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputError1" class="control-label">Country</label>
+                <select name="country" formControlName="country" class="inputH form-control" >
+                  <option *ngFor="let counter of countrylist" [ngValue]="counter.id">
+                    {{counter.country_name}}
+                  </option>
+                </select>
+                <div *ngIf="submitted && f.country.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.country.errors.required">Country is required</div>
+              </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">State</label>
+                <select name="state" formControlName="state"  class="form-control inputH" *ngIf="StateList != undefined">
+                  <option default value="0" disabled>Select State</option>
+                  <option *ngFor="let states of StateList" [ngValue]="states.id">{{states.state_name}}</option>
+                </select>
+                <div *ngIf="submitted && f.state.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.state.errors.required">State is required</div>
+              </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Company Website </label>
+                <input type="text" formControlName="CompanyWebsite" name="CompanyWebsite" placeholder="Company Website"
+                       class="form-control inputH" id="exampleInputAmount">
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">Job Position</label>
+                <input type="text" formControlName="job_position"  name="job_position" placeholder="Assistant human resource manager"
+                       class="form-control inputH" id="exampleInputAmount">
+                <div *ngIf="submitted && f.job_position.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.job_position.errors.required">Job Position is required</div>
+                </div>
+              </div>
+             
+              <div class="form-group">
+                <label class="control-label">Primary Industry</label>
+                <select name="Industry" formControlName="Industry"  class="inputH form-control">
+                  <option default value="0" disabled>Select Industry</option>
+                  <option *ngFor="let industry of IndustryList" [ngValue]="industry.id">
+                    {{industry.industry_name}}
+                  </option>
+                </select>
+                <div *ngIf="submitted && f.Industry.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.Industry.errors.required">Industry is required</div>
+               </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Size Of Company</label>
+                <select name="SizeOfCompany"  formControlName="SizeOfCompany" class="inputH form-control">
+                  <option default value="0" disabled>Select Company Size</option>
+                  <option value="1">myself only</option>
+                  <option value="2-10">2-10</option>
+                  <option value="11-50">11-50</option>
+                  <option value="51-200">51-200</option>
+                  <option value="201-500">201-500</option>
+                  <option value="501-1,000">501-1,000</option>
+                  <option value="1,001-5,000">1,001-5,000</option>
+                  <option value="5,001-10,000">5,001-10,000</option>
+                  <option value="10,000+">10,000+</option>
+                </select>
+                <div *ngIf="submitted && f.SizeOfCompany.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.SizeOfCompany.errors.required">Size Of Company is required</div>
+               </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Company Category</label>
+                <select name="category_type"  formControlName="category_type" class="inputH form-control">
+                  <option  default value="0" disabled>Select Company Category</option>
+                  <option *ngFor="let category of categoryList" [ngValue]="category.value">
+                    {{category.text}}
+                  </option>
+                </select>
+                <div *ngIf="submitted && f.category_type.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.category_type.errors.required">Category Type is required</div>
+               </div>
+              </div>
+             
+              <div class="form-group">
+                  <label class="control-label">Company Admin</label>
+                  <input type="text" name="name" placeholder="Company Admin"
+                          class="form-control inputH" formControlName="name" id="exampleInputAmount">
+                      <div *ngIf="submitted && f.name.errors" class="invalid-feedback warning">
+                          <div *ngIf="f.name.errors.required">Company Admin is required</div>
+                      </div>
+              </div>
+              <div class="form-group">
+                    <label class="control-label">Email Address</label>
+                    <input type="email" name="email" placeholder="Company Email Address" id="contactemail" 
+                           formControlName="email"  class="form-control inputH" id="exampleInputAmount">
+                           <div *ngIf="submitted && f.email.errors" class="invalid-feedback warning">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                          </div>
+                          <div *ngIf="submitted && f.email.errors" class="invalid-feedback warning">
+                            <div *ngIf="f.email.errors.pattern">Email should be in correct format</div>
+                          </div>
+                    
+              </div>
+              <div class="form-group">
+                  <label class="control-label">Phone Number</label>
+                  <input type="number" name="contact" placeholder="Company Phone Number"
+                          formControlName="contact" class="form-control inputH" id="exampleInputAmount">
+                    <div *ngIf="submitted && f.contact.errors" class="invalid-feedback warning">
+                        <div *ngIf="f.contact.errors.required">Phone Number is required</div>
+                    </div>
+             </div>
+            </form>
+            <div class="greenMsg">{{message}} </div>
+          </div>
+          <div class="pmd-modal-action text-right">
+            <button data-dismiss="modal" type="button" class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline"
+                    #closeAddExpenseModal>
+              DISCARD
+            </button>
+            <button (click)="updateCompanyData()" type="button" class="btn pmd-ripple-effect btn-success PrimaryButton">
+              SAVE
+              CHANGES
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!--end content area-->

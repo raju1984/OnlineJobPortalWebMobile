@@ -1,0 +1,26 @@
+
+.cursorClass{
+    cursor: pointer;
+}
+.warning{
+    color:red;
+}
+.messageClass{
+    color:green;
+}
+.table-noData{
+    color: #b1b5b8;
+  }
+
+  .flexTop {
+    display: flex;
+    height: 400px;
+  }
+
+  .flexAlignMiddle {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  } 

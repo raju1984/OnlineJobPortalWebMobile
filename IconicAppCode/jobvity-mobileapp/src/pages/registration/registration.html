@@ -1,0 +1,97 @@
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <p class="logo">
+          <b ion-text color="primary"> Sign Up </b>
+        </p>
+        <form [formGroup]="myForm">
+          <ion-list>
+            <ion-item>
+              <ion-label stacked color="primary">Email <span ion-text color="red">*</span></ion-label>
+              <ion-input formControlName="email" type="email"></ion-input>
+            </ion-item>
+
+            <p ion-text color="red" class="warning" *ngIf="
+        myForm.get('email').hasError('required') && myForm.get('email').touched
+      ">
+              Email is required!
+
+            </p>
+            <p ion-text color="red" class="warning"
+              *ngIf="myForm.get('email').touched && myForm.get('email').valid == false">
+              Email should be in the correct format
+            </p>
+            <ion-item>
+              <ion-label stacked color="primary">Password <span ion-text color="red">*</span></ion-label>
+              <ion-input formControlName="password" type="password"></ion-input>
+            </ion-item>
+            <p ion-text color="red" class="warning" *ngIf="
+        myForm.get('password').hasError('required') &&
+        myForm.get('password').touched
+      ">
+              Password is required!
+            </p>
+            <p ion-text color="red" class="warning" *ngIf="
+        myForm.get('password').touched && myForm.get('password').valid == false
+      ">
+              Password should be 6 characters or more
+            </p>
+            <ion-item>
+              <ion-label stacked color="primary">Confirm Password <span ion-text color="red">*</span></ion-label>
+              <ion-input formControlName="cnfpassword" type="password"></ion-input>
+            </ion-item>
+
+            <p ion-text color="red" class="warning" *ngIf="
+        myForm.get('cnfpassword').hasError('required') &&
+        myForm.get('cnfpassword').touched
+      ">
+              Please confirm your password
+
+            </p>
+            <p ion-text color="red" class="warning" *ngIf="
+        myForm.get('cnfpassword').touched && myForm.errors?.Passinvalid == true
+      ">
+              password and Confirm password did not match
+
+            </p>
+            <ion-item style="display:none;" class="MB8">
+              <ion-input></ion-input>
+            </ion-item>
+          </ion-list>
+          <ion-item class="noBorder MB8">
+            <button [disabled]="!myForm.valid" ion-button block (click)="userDetail()" color="danger">
+              Register
+            </button>
+          </ion-item>
+          <ion-item class="noBorder MB8">
+            <p ion-text text-center class="LH2">
+              OR
+            </p>
+            <button (click)="loginWithFB()" ion-button large block color="facebook" class="fbLogin">
+              <ion-icon name="logo-facebook" float-start> </ion-icon> &nbsp; &nbsp; <small> Register with Facebook
+              </small>
+            </button>
+          </ion-item>
+          <ion-item class="noBorder MB8">
+            <button (click)="googleLogin()" ion-button large block color="google" class="gLogin">
+              <ion-icon name="logo-google" float-start> </ion-icon> &nbsp; &nbsp; <small> Register with Google </small>
+            </button>
+          </ion-item>
+          <!--<ion-item class="noBorder MB8">
+            <button ion-button large block color="linkedin" class="lLogin">
+              <ion-icon name="logo-linkedin" float-start> </ion-icon> &nbsp; &nbsp; <small> Register with Linked in
+              </small>
+            </button>
+          </ion-item>-->
+          <ion-item class="noBorder" text-center>
+            <p ion-text color="primary" class="createAccount" (click)="Login()">
+              <small ion-text color="danger"> Already have an account? </small><br>
+              Sign In
+            </p>
+          </ion-item>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

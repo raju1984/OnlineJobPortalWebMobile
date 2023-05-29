@@ -1,0 +1,25 @@
+page-jobtivity-wow-details {
+    ion-list.comment {
+        margin-bottom: 10px;
+        .item ion-avatar img {
+            border-radius: 50%;
+        }
+        .item ion-avatar {
+          margin: 0 !important;
+        }
+        p {
+          color: #000 !important;
+        }
+        ion-label {
+            margin: 0;
+            ion-col {
+                display: flex;
+                align-items: center;
+                p {
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+      }
+}

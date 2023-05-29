@@ -1,0 +1,322 @@
+<app-admin-navbar></app-admin-navbar>
+<app-admin-sidebar id="basicSidebar" class="pmd-sidebar  sidebar-default pmd-sidebar-slide-push pm d-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons" role="navigation"></app-admin-sidebar>
+
+<div id="content" class="pmd-content content-area dashboard">
+  <div class="container-fluid">
+    <div class="row" id="card-masonry">
+        <div class="col-xs-12 nopadding" >
+            <div class="pmd-card pmd-z-depth">
+                <div class="pmd-tabs pmd-tabs-bg">
+                    <div class="pmd-tab-active-bar"></div>
+                    <ul role="tablist" class="nav nav-tabs nav-justified">
+                      <li class="active" role="presentation">
+                        <a data-toggle="tab"
+                           role="tab" aria-controls="home" href="#pending" >Pending Job Ads</a>
+                      </li>
+                      <li role="presentation">
+                        <a data-toggle="tab"
+                           role="tab" aria-controls="profile" href="#approved">Approved Job Ads</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="pmd-card-body">
+                      <div class="tab-content">
+                        <!-- Pending List -->
+                        <div role="tabpanel" class="tab-pane active" id="pending">
+                          
+                          <div class="pmd-card pmd-z-depth-1 shadow-demo pmd-card-custom-view">
+                            <div class="pmd-table-card">
+                              <div *ngIf="talentJobList?.length > 0">
+                                  <div class="table-responsive">
+
+                                    <table cellspacing="0" cellpadding="0" class="table table-hover MB20 table-bordered" id="dataTable1">
+                                      <thead>
+                                        <tr>
+                                          <th>Title</th>
+                                          <th>Company Name</th>
+                                          <th>Salary</th>
+                                          <th>No. of Vacancies</th>
+                                          <th>Location</th>
+                                          <th>Job Type</th>
+                                          <th>Timings</th>
+                                          <th>Expire In</th>
+                                          <th>Last Edited On</th>
+                                          <th>Action</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr *ngFor="let data of talentJobList">
+                                          <td data-title="Title">{{data.title}}</td>
+                                          <td data-title="Company">{{data.company_name}}</td>
+                                          <td data-title="Salary">RM{{data.min_salary}} to RM{{data.max_slaray}}</td>
+                                          <td data-title="Vacancy">{{data.no_of_vacancy}}</td>
+                                          <td data-title="Location">{{data.stateName}}</td>
+                                          <td data-title="JobType">{{data.job_type}}</td>
+                                          <td data-title="Timings">{{data.join_time}}</td>
+                                          <td data-title="Expire In">
+                                              <span *ngIf="data.expireDays == '0'">Today</span>
+                                              <span *ngIf="data.expireDays > 0"> {{data.expireDays}} Days</span>
+                                              <span *ngIf ="data.expireDays == '-1' ">Expired</span> 
+                                              <span *ngIf ="data.expireDays == 'pending' "> - </span> 
+                                          </td>
+                                          <td data-title="Last Edited On">{{data.update_date}}</td>
+                                          <td data-title="Action" class="row-inline">
+                                              <a  (click)="viewMockUp(data.id)" data-toggle="modal" data-target="#viewMock"
+                                              class="btn btn-sm pmd-btn-outline pmd-ripple-effect grayIcon btnSmallIcon"><i
+                                                class="material-icons grayColor ">visibility</i></a>
+                                            <a (click)="editJobStatus(data.id,'Approved')" data-toggle="modal" data-target="#approveJob"
+                                              class="btn btn-sm pmd-btn-outline pmd-ripple-effect grayIcon btnSmallIcon"><i
+                                                class="material-icons grayColor ">done</i></a>
+                                            <a (click)="editJobStatus(data.id,'Reject')" data-toggle="modal" data-target="#rejectJob"
+                                              class="btn btn-sm pmd-btn-outline pdm-ripple-effect grayIcon btnSmallIcon"><i
+                                                class="material-icons grayColor ">close</i></a>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    <div class="text-right marginR10">
+                                      <label for="exampleInputEmail1">Page: &nbsp;</label>
+                                      <select (change)="listJobAdsss($event.target.value)" class="paggingDropdown">
+                                          <option *ngFor= "let data of countArray;let i = index;" value="{{data.index}}">{{data.index}}</option>
+                                        </select>
+                                  </div>
+                                  </div>
+                              </div>
+                              <div *ngIf="talentJobList?.length  == 0" class="flexTop">
+                                <div class="table-noData flexAlignMiddle">
+                                  No jobs Available Yet
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                          <!-- Approved List -->
+                        <div role="tabpanel" class="tab-pane" id="approved">
+                          <div class="pmd-card pmd-z-depth-1 shadow-demo pmd-card-custom-view">
+                            <div class="pmd-table-card">
+                                <div *ngIf="apptalentJobList?.length > 0">
+                                    <div class="pmd-card pmd-z-depth pmd-card-custom-view">
+                                        <div class="table-responsive">
+                                   
+                                          <table cellspacing="0" cellpadding="0" class="table table-hover MB20 table-bordered" id="dataTable1">
+                                            <thead>
+                                              <tr>
+                                                <th>Title</th>
+                                                <th>Company Name</th>
+                                                <th>Salary</th>
+                                                <th>No. of Vacancies</th>
+                                                <th>Location</th>
+                                                <th>Job Type</th>
+                                                <th>Timings</th>
+                                                <th>Expire In</th>
+                                                <th>Last Edited On</th>
+                                                <th>Action</th>
+                                               
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr *ngFor="let data of apptalentJobList">
+                                                <td data-title="Title">{{data.title}}</td>
+                                                <td data-title="Company">{{data.company_name}}</td>
+                                                <td data-title="Salary">RM{{data.min_salary}} to RM{{data.max_slaray}}</td>
+                                                <td data-title="Vacancy">{{data.no_of_vacancy}}</td>
+                                                <td data-title="Location">{{data.stateName}}</td>
+                                                <td data-title="JobType">{{data.job_type}}</td>
+                                                <td data-title="Timings">{{data.join_time}}</td>
+                                                <td data-title="Expire In">
+                                                    <span *ngIf="data.expireDays == '0'">Today</span>
+                                                    <span *ngIf="data.expireDays > 0"> {{data.expireDays}} Days</span>
+                                                    <span *ngIf ="data.expireDays == '-1' ">Expired</span> 
+                                                </td>
+                                                <td data-title="Last Edited On">{{data.update_date}}</td>
+                                                <td data-title="Action" class="row-inline">
+                                                  <a  (click)="viewMockUp(data.id)" data-toggle="modal" data-target="#viewMock"
+                                                  class="btn btn-sm pmd-btn-outline pmd-ripple-effect grayIcon btnSmallIcon"><i
+                                                    class="material-icons grayColor ">visibility</i></a>
+
+                                              </td>
+                                              </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="text-right marginR10">
+                                          <label for="exampleInputEmail1">Page: &nbsp;</label>
+                                          <select (change)="approvedlistJobAdsss($event.target.value)" class="paggingDropdown">
+                                              <option *ngFor= "let data of countArray1;let i = index;" value="{{data.index}}">{{data.index}}</option>
+                                            </select>
+                                      </div>
+                                      </div>
+                                    </div> 
+                                  </div>
+                                  <div *ngIf="apptalentJobList?.length  == 0" class="flexTop">
+                                    <div class="table-noData flexAlignMiddle"> No jobs Available Yet
+                                    </div>
+                                  </div> 
+                            </div>
+                          </div>
+                        </div>
+                        
+                       </div>
+                     </div>
+            </div>
+           
+           
+       </div>                  
+    </div>
+  </div>
+ </div>
+
+<!-- View Mockup Model -->
+<div  class="modal fade bs-example-modal-lg" id="viewMock"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+              <div class="col-xs-12">
+                  <div class="col-md-5 col-md-offset-3 col-xs-12">
+                      <div class="smartphone">
+                          <div  class="content">
+                             
+                                  <div class="row" style="margin: 0;padding: 10px;">
+                                      <div class="col-md-4" style="padding:0">
+                                      <!-- <img *ngIf="visiblity == 1" src="{{comLogo}}" alt="" style="max-width: 85px; max-height: 85px;" 
+                                      onError="this.src = 'https://static.thenounproject.com/png/621754-200.png'"> -->
+                                      <img *ngIf="visiblity == 1" [src]="comLogo" alt="" style="max-width: 85px; max-height: 85px;"
+                                      (error)="img.src = dummyImage" #img >
+                                      <!-- <img *ngIf="visiblity == 0" src="https://static.thenounproject.com/png/621754-200.png" alt="" style="max-width: 85px; max-height: 85px;"> -->
+                                      <span *ngIf="visiblity == 0">
+                               
+                                        <img src="{{dummyImage}}" alt="" style="max-width: 85px; max-height: 85px;">
+                                      </span>
+                                      </div>
+                                      <div class="col-md-8" style="padding:0">
+                                          <div class="details">
+                                              <h4>   <p class="themeColor">{{jobTitle}}</p></h4>
+                                              <p *ngIf="visiblity == 1">{{comName}}</p>
+                                              <p *ngIf="visiblity == 0">Undisclosed Company</p>
+                                              <p><small><small class="text-muted">RM {{minSalary}} - RM {{maxSalary}} · {{state}} · {{createdDate}}</small></small></p>
+                                              <p><small><small class="text-muted">Job Type: {{JobType}}</small></small></p>
+                                              <p><small><small class="text-muted">Number of Vacancies: {{vacancy}}</small></small></p>
+                                              <p><small><small class="text-muted">Expire In : 
+                                                  <span *ngIf="expireDays == '0'">Today</span>
+                                                  <span *ngIf="expireDays > 0"> {{expireDays}} Days</span>
+                                                  <span *ngIf ="expireDays == '-1' ">14 Days</span> </small></small></p>
+                                          </div>
+                                      </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row" style="margin: 0; padding: 10px;">
+                                        <button type="button" class="btn btn-success" style="width: 100%;">Apply Now</button>
+                                    </div>
+                                   
+                                    <div class="row" style="margin: 0;padding: 10px;">
+                                      <div class="col-md-12" style="padding: 0;">
+                                        <div class="RDetail">
+                                          <h5>Requirement Detail</h5>
+                                          <h3>Position Level</h3>
+                                          <ul class="circleUL">
+                                              <li><small>{{jobpostion}}</small></li>
+                                          </ul>
+                                          <h3>Minimum Academic Requirement</h3>
+                                          <div *ngFor="let Queation of academic" >
+                                              <div *ngFor="let QueationOption of Queation.question_options">
+                                                <div *ngIf="QueationOption.isSen == true">
+                                                 
+                                                      <ul  class="circleUL" *ngIf="QueationOption.slug =='op57'|| QueationOption.slug =='op58' || QueationOption.slug =='op59' || QueationOption.slug =='op78'|| QueationOption.slug =='op79'|| QueationOption.slug =='op82'">
+                                                          <li > <small>Qualification: {{QueationOption.question_options}}</small></li> 
+                                                          <li *ngIf="QueationOption.Detail !=''"> <small>Fields of Study: {{QueationOption.Detailpreview}}</small> </li>
+                                                        </ul>
+                                                
+                                                </div>
+                                              </div>
+                                            </div>
+                                          <h3>Previous Work Experience Requirement</h3>
+                                          <div *ngFor="let Queation of WorkExp">
+                                              <div *ngFor="let QueationOption of Queation.question_options">
+                                                <div *ngIf="QueationOption.isSen==true">
+                                                    <ul  class="circleUL">
+                                                        <li  *ngIf="Queation.slug=='q17'"> <small>Prior Work Experience Required: {{QueationOption.question_options}}</small></li>
+                                                        <li   *ngIf="Queation.slug=='q20' && QueationOption.slug=='op73' && QueationOption.Detail !=''"> <small>Relevant Departments: {{QueationOption.Detailpreview}} </small></li>
+                                                        <li   *ngIf="Queation.slug=='q20' && QueationOption.slug=='op74' && QueationOption.Detail !=''"> <small>Relevant Industries: {{QueationOption.Detailpreview}} </small></li>
+                                                      </ul>
+                                                </div>
+                                              </div>
+                                          </div>
+                                          <h3>Job Role & Scope</h3>
+                                          <!-- <small >{{jobDescription}} </small > -->
+                                          <div>
+                                            <ul  class="circleUL">
+                                                <li  *ngFor="let desc of jobDetail_description">{{desc.text}}</li>
+                                             </ul>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                              </div>
+                        </div>
+                   </div> 
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button  id="deleteData" data-dismiss="modal" type="button"
+                class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline" #closeAddExpenseModal>
+                DISCARD
+              </button>
+        </div>
+     </div>
+  </div>
+</div> 
+<!-- Approve Popup -->
+<div tabindex="-1" class="modal fade" id="approveJob" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+
+          <h2>Are you sure you want to Approve this Job? </h2>
+        </div>
+        <div class="pmd-modal-action text-right">
+          <button data-dismiss="modal" type="button" class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline"  #closeAddExpenseModal>
+            DISCARD
+          </button>
+          <button data-dismiss="modal" (click)="approveJob()" type="button" class="btn pmd-ripple-effect btn-success PrimaryButton">SAVE CHANGES
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Reject Popup -->
+  <div tabindex="-1" class="modal fade" id="rejectJob" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+
+            <h2>Are you sure you want to Reject this Job?</h2>
+            <form [formGroup]="RejectionForm" >
+                <div class="form-group">
+                  <label for="inputError1" class="control-label">Please provide the rejection reason.</label>
+                    <div class="input-group">
+                      <textarea name="reasons"  formControlName="reasons" class="form-control inputH" rows="4" cols="120">
+                      </textarea>
+                      
+                    </div>
+                    <div *ngIf="submitted && f.reasons.errors" class="invalid-feedback warning">
+                        <div *ngIf="f.reasons.errors.required">Rejection Reason is required </div>
+                      </div>
+                  </div>
+              </form>
+          </div>
+          <div class="pmd-modal-action text-right">
+            <button data-dismiss="modal" (click)="closeModel()" type="button" class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline"  #closeAddModal>
+              DISCARD
+            </button>
+            <button  (click)="rejectJob()" type="button" class="btn pmd-ripple-effect btn-success PrimaryButton">
+              SAVE
+              CHANGES
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  

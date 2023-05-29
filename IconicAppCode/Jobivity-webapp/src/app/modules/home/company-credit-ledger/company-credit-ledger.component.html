@@ -1,0 +1,49 @@
+<app-nav></app-nav>
+
+<div id="content" class="pmd-content content-area dashboard">
+    <div class="container-fluid">
+      <div class="row">
+          <div class="col-xs-12 nopadding">
+            <div  *ngIf="creditLedgerList?.length > 0">
+              <table cellspacing="0" cellpadding="0" class="table table-bordered table-hover" id="table-bootstrap">
+                  <thead>
+                      <tr>
+                          <th>Date</th>
+                          <th>Description</th>
+                          <th>Debit </th>
+                          <th>Credit</th>
+                          <th>Balance</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let record of creditLedgerList | paginate: { itemsPerPage: 20, currentPage: p }">
+                          <td>{{record.created_att}}</td>
+                          <td>{{record.descriptions}}</td>
+                          <td>{{record.debit}}</td>
+                          <td>{{record.credit}}</td>
+                          <td>{{record.balance}}</td>
+                      </tr>
+                  </tbody>
+              </table>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+            <div *ngIf="creditLedgerList?.length  == 0" class="flexTop">
+                <div class="table-noData flexAlignMiddle">No transaction history Yet</div>
+            </div>
+                <!-- <div class="pagination">
+                    <a href="javascript:void(0)">&laquo;</a>
+                    <span *ngFor= "let data of countArray;let i = index; ">
+                    <a href="javascript:void(0)" (click)="getCreditLedgerListByid(data.index)">{{data.index}}</a>
+                    </span>
+                    <a href="javascript:void(0)" >&raquo;</a>
+                </div> -->     
+            </div>
+      <!-- <div class="row">
+        <ul>
+            <li *ngFor="let item of creditLedgerList | paginate: { itemsPerPage: 10, currentPage: p }">{{ item }}</li>
+          </ul>
+      </div> -->
+   
+    </div>
+  </div>
+</div>

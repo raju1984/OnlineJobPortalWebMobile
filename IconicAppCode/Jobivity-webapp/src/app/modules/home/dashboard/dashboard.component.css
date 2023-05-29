@@ -1,0 +1,242 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .marginT100 {
+    margin-top: 100px;
+  }
+
+  .navbar-brand img {
+    width: 120px;
+    padding: 10px 0;
+  }
+
+  .nav-tabs li.active a {
+    background: #fff;
+    color: #4285f4;
+  }
+
+  .table-inverse a {
+    color: #fff !important;
+  }
+
+  .table-active {
+    background: #cccccc !important;
+    color: #000 !important;
+  }
+
+
+  .navbar-inverse {
+    background-color: #fb7e9d;
+    border-color: snow;
+    box-shadow: none;
+    border: none;
+  }
+
+  .pmd-content {
+    margin-left: 0;
+  }
+
+  #content {
+    padding: 0;
+  }
+
+  .pmd-content .container-fluid {
+    max-width: 100vw;
+  }
+
+  .spaveTop {
+    background-size: contain;
+    padding-top: 70px;
+    background-repeat: no-repeat;
+  }
+
+  .padding15 {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .marginT30 {
+    margin-top: 30px
+  }
+
+  .pmd-z-depth-2 {
+    border-radius: 4px;
+  }
+
+  .pmd-z-depth-2 h5 {
+    line-height: 1.5;
+  }
+
+  .text-muted {
+    color: #b1b5b8;
+  }
+
+  .btn {
+    text-transform: capitalize;
+  }
+
+  a.post-time {
+    color: #337ab7;
+  }
+
+  a.post-time:hover {
+    color: #23527c;
+    text-decoration: underline;
+  }
+
+  h5 {
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .list-group-item hr {
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+
+  .text-primary {
+    color: #273677;
+  }
+
+  .text-warning {
+    color: #273677;
+  }
+
+  .TalentsList .list-group-item p {
+    white-space: nowrap;
+  }
+
+  .noUi-base {
+    margin-top: -25px;
+  }
+
+  .media-right p {
+    text-align: left;
+  }
+
+  .paddingLR30 {
+    padding: 0 30px !important;
+  }
+
+  .admin-footer {
+    background: #000;
+  }
+
+  .text-white {
+    color: #fff !important;
+  }
+
+  .pmd-range-slider .noUi-handle:before {
+    border: 2px solid #5c7ce3;
+    background: #ffffff;
+  }
+
+  .inner-page {
+    padding-top: 0;
+  }
+
+  ::ng-deep .ng5-slider {
+    margin: 10px 0 15px !important;
+  }
+
+  ::ng-deep .ng5-slider .ng5-slider-pointer {
+    background-color: #ffffff !important;
+    border: 2px solid #f27e9c !important;
+  }
+
+  ::ng-deep .ng5-slider .ng5-slider-bar {
+    background: #f27e9c !important;
+  }
+
+  ::ng-deep .ng5-slider .ng5-slider-selection {
+    background: #f27e9c !important;
+  }
+
+  ::ng-deep .ng5-slider .ng5-slider-pointer {
+    cursor: default !important;
+  }
+  .table-noData{
+    color: #b1b5b8;
+  }
+
+  .flexTop {
+    display: flex;
+    height: 400px;
+  }
+
+  .flexAlignMiddle {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  .middleSection {
+    float: left;
+    width: 75%;
+  }
+  .clear {
+    clear: both;
+  }
+.wordBreak {
+  word-break: break-all;
+}
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+.media-right.post {
+  padding-left: 0;
+}
+.btnSmallIcon {
+  padding: 2px;
+  min-width: auto;
+  min-height: auto;
+  font-size: 0rem;
+  margin-right: 2px;
+}
+.positionR {
+  position: relative;
+}
+.positionR .dropdown-menu {
+  top: 70%;
+  right: 0;
+  left: auto;
+  padding: 0px;
+}
+.positionR .dropdown-menu li a {
+  padding: 10px;
+}
+.positionR .dropdown-menu li a:hover {
+  color: #ffffff;
+  background-color: #f27e9d;
+}
+.positionR .dropdown-menu .divider {
+  margin: 0
+}
+.cursorP {
+  cursor: pointer;
+}
+.warning {
+  color: orange;
+  font-size: 1rem;
+  }
+
+  
+.inlineBlock {
+  display: inline-block;
+  margin-bottom: 0;
+}
+a.interview-link:hover, a.interview-link:focus {
+  color: #f27e9d;
+}
+.hide{
+  display:none;
+}
+td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+  border-bottom-width: 0px !important;
+  border-bottom-style: hidden !important;
+}
+h3.wordBreak:hover, h3.wordBreak:active {
+  color: #f27e9d;
+}

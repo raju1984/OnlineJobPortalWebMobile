@@ -1,0 +1,131 @@
+table.table > tbody > tr > td.text-right {
+    text-align: right;
+}
+
+.btn-link:focus, .btn-link:hover {
+    color: #4285f4 !important;
+}
+
+a.company {
+background-color: #1a2940 !important;
+}
+.verefiedEmail {
+    color: green;
+    font-size: 1.2rem;
+    margin: 1px;
+}
+.notVarefiedEmail {
+    font-size: 1.2rem;
+    color: red;
+}
+.marginB2 {
+  margin-bottom: 2px;
+}
+.marginR2 {
+  margin-right: 5px;
+}
+.borderRound {
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 1.4rem;
+}
+.text-dark {
+  color: #000 !important;
+}
+.height60 {
+  max-height: 60vh;
+  overflow: auto
+}
+
+.btn-csv{
+    float: right;
+    margin: 20px 0;
+    background-color: #4285f4;
+    margin-right: 10px;
+}
+.text-size{
+  font-size: 12px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  color: #f27e9c !important;
+}
+#dataTable1_wrapper #dataTable1_paginate .paginate_button:hover {
+  border: 1px solid #f27e9d !important;
+  background-color: #f27e9c !important;
+  background: linear-gradient(to bottom, #f27e9d 0%, #f27e9d 100%) !important;
+}
+
+[tooltip] {
+  position: relative;
+  margin-top: -22px;
+  /* margin-right: 45px; */
+  color: #fff;
+  cursor: pointer;
+}
+[tooltip] .tooltip-content{
+  display: block;
+  position: absolute;
+  width: 1000%;
+  text-align: center;
+  right: 0;
+  padding: 10px 5px;
+  text-transform: none;
+  font-size: 14px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0);
+  transition: all .2s ease-in-out .5s;
+  z-index: 1;
+  visibility: hidden;
+}
+[tooltip]:hover .tooltip-content {
+  opacity: 1;
+  visibility: visible;
+}
+.warning{
+  color:red;
+}
+.marginL2{
+  margin-left: 5px;
+}
+.hideButton{
+  display: none;
+}
+table{
+width:100%;
+}
+th.mat-sort-header-sorted {
+  color: black;
+}
+mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+td.mat-cell
+{
+  padding: 8px 10px !important;
+}
+.curPoi{
+  cursor:pointer;
+}
+
+#upload-card {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+a.veify-link{
+  color: white;
+text-decoration: underline;
+}
+a.veify-link:hover{
+  color:rgb(66, 133, 244);
+text-decoration: underline;
+}
+.uploadFileClass {
+  border: 1px dashed #ccc;
+  text-align: center;
+  padding: 30px;
+}

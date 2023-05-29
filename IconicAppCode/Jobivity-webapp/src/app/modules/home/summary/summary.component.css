@@ -1,0 +1,173 @@
+.colorTheme, .colorTheme b{
+color: #f27e9d;
+}
+.paddingLR0 {
+padding-left: 0;
+padding-right: 0;
+}
+.paddingL0 {
+padding-left: 0;
+}
+.paddingR0 {
+padding-right: 0;
+}
+/* .row-inline{
+display: inline-flex;
+} */
+/* .grayIcon {
+background-color: transparent!important;
+
+color: #fd5580;
+border: none !important;
+margin-right: -25px;
+}
+
+.grayIcon:hover, .grayIcon:focus {
+background-color: transparent !important;
+border: none !important;
+color:#f1436f;
+} */
+.warning{
+  color:red;
+}
+input.largerCheckbox { 
+width: 14px;
+height: 14px;
+margin-right: 7px;
+} 
+.hideButton{
+  display: none;
+}
+
+.smartphone {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  margin: auto;
+  border: 16px black solid;
+  border-top-width: 60px;
+  border-bottom-width: 60px;
+  border-radius: 36px;
+}
+
+/* The horizontal line on the top of the device */
+.smartphone:before {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 5px;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #333;
+  border-radius: 10px;
+}
+
+/* The circle on the bottom of the device */
+.smartphone:after {
+  content: '';
+  display: block;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  left: 50%;
+  bottom: -65px;
+  transform: translate(-50%, -50%);
+  background: #333;
+  border-radius: 50%;
+}
+
+/* The screen (or content) of the device */
+.smartphone .content {
+  width: 100%;
+  height: 100%;
+  background: white;
+  overflow: auto;
+}
+.flexClass {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 20px;
+    align-items: center;
+}
+.flexChild1 {
+  flex: 6;
+  padding: 0 10px 10px 10px;
+  border-bottom: 1px solid #ccc;
+}
+.flexClassP {
+display: flex;
+flex-wrap: wrap;
+padding: 20px;
+flex-direction: column;
+}
+.flexChild1 p {
+margin: 0;
+line-height: 1.3;
+text-transform: capitalize;
+font-size: 12px;
+}
+.flexChild2 {
+  flex: 1;
+}
+.flexChild2 img {
+width: 50px;
+}
+.paddingTB0 {
+padding-top: 0;
+padding-bottom: 0; 
+}
+.themeColor {
+    color: #f27e9d;
+}
+.buttonClass {
+    border: 1px solid #f27e9d;
+    padding: 10px 5px;
+    color: #f27e9d;
+    background: transparent;
+    font-size: 10px;
+}
+#myModal {
+  overflow: auto;
+}
+.lineHeight1 {
+  line-height: 1;
+}
+.paddingB0 {
+  padding-bottom: 0;
+}
+.margin70{
+  margin-top:70px;
+}
+.table-noData{
+  color: #b1b5b8;
+}
+
+.flexTop {
+  display: flex;
+  height: 400px;
+}
+
+.flexAlignMiddle {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.circleUL {
+  list-style-type: circle;
+  padding-left: 20px;
+}
+.textPreWrap {
+  white-space: pre-wrap !important;
+}
+ul.circleUL {
+  margin-bottom: 0!important;
+}
+.marginB10 {
+  margin-bottom: 10px;
+}

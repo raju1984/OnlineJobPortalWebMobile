@@ -1,0 +1,436 @@
+<app-nav></app-nav>
+<ngx-spinner></ngx-spinner>
+<!--<app-sidenav id="basicSidebar"
+             class="pmd-sidebar  sidebar-default pmd-sidebar-slide-push pm d-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons"
+             role="navigation"></app-sidenav>-->
+<div id="content" class="pmd-content inner-page marginT20">
+  <div class="row marginT20 noMargin">
+    <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+      <!--<form id="validationForm" action="" method="post" *ngIf="Isdetail">-->
+      <div class="pmd-card pmd-z-depth" *ngIf="Isdetail">
+        <div class="pmd-card-body">
+          <div class="group-fields clearfix row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="form-group pmd-textfield ">
+                <label for="regular1" class="control-label">
+                    Position Title*
+                </label>
+
+                <input class="form-control iconSearch" type="text" placeholder="Specify Position Title*"
+                       [(ngModel)]="inputNameSearch" (keyup)="searchClient(inputNameSearch)"
+                       aria-describedby="basic-addon1" />
+                <div class="search-result" *ngIf="flag">
+                  <ul>
+                    <li *ngFor="let list of dataList" (click)="onselectClient(list)">
+                      <a>{{list}}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div *ngIf="nameRequired" style="color:red">
+                  Position Title Is required
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="group-fields clearfix row">
+              <div class="col-xs-12">
+                <div class="form-group pmd-textfield ">
+                  <label> Position Level*</label>
+                  <ng-select [items]="position_level" placeholder="Select Position Level*" [(ngModel)]="positionLevel">
+  
+                  </ng-select>
+                  <div *ngIf="positionRequired" style="color:red">
+                      Position Level Is required
+                  </div>
+                </div>
+  
+              </div>
+          </div>
+       
+
+          <div class="group-fields clearfix row">
+            <div class="col-xs-12">
+              <div class="form-group pmd-textfield ">
+                <label>Department*</label>
+                <ng-select [items]="Department" placeholder="Select Department*" [(ngModel)]="Detail">
+
+                </ng-select>
+                <div *ngIf="DepRequired" style="color:red">
+                  Department Is required
+                </div>
+              </div>
+
+            </div>
+            <div class="col-xs-12">
+              <div class="form-group pmd-textfield">
+
+                <div class="col-sm-12 paddingLR0">
+                  <label for="regular1" class="control-label">
+                    Job Role & Scope*
+                  </label>
+                </div>
+                <!--<input type="text" class="form-control" required [(ngModel)]="descripetion">-->
+
+                <div class="row">
+                  <div *ngFor="let word2 of words2; let in=index" class="col-xs-12">
+                    <div class="form-group" style="padding-right:50px;">
+                      <input type="text" (keyup)="updateList($event)" [(ngModel)]="words2[in].value" id="name{{in}}"
+                             #names{{in}} class="form-control" required />
+                    </div>
+
+                    <br />
+                  </div>
+                  <a style="position: absolute;bottom: 60px;right: 50px;" (click)="add()">
+                    <span class="glyphicon glyphicon-plus"></span>
+                  </a>
+                </div>
+                <div *ngIf="DispRequired" style="color:red;float:left">
+                    Job Role & Scope Is required
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="pmd-card-actions">
+          <button class="btn pmd-ripple-effect btn-primary PrimaryButton pull-right" (click)="ChangeNext()">
+            Next
+          </button>
+
+          <button class="btn pmd-btn-outline pmd-ripple-effect btn-primary secondaryOutline" (click)="Clickcancel()">
+            Cancel
+          </button>
+          <!--<a href="javascript:void(0);" (click)="ChangeNext()" class="btn btn-primary next">Next</a>-->
+        </div>
+      </div> <!-- section content end -->
+      <!--</form>-->
+      <div #myDiv id="text" class="pmd-card pmd-z-depth" *ngIf="IsAcedmic">
+        <div class="pmd-card-body">
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default telentProfileDetailInfo">
+              <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                  <a role="button" id="aria1" class="collapsed panelSection" data-toggle="collapse" data-parent="#accordion"
+                     href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Academic
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body" *ngFor="let Queation of academic">
+                  <h5><b id="{{Queation.slug}}">{{Queation.questions}} <span class="colorRed">*</span></b></h5>
+                  <div class="marginB4em">
+
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs equalDirection" role="tablist">
+                      <li role="presentation" *ngFor="let QueationOption of Queation.question_options"
+                          [ngClass]="QueationOption.isSen==true?'active col-md-4 col-xs-6  noPadding paddingBottom': 'col-md-4 col-xs-6 noPadding paddingBottom'">
+                        <a href="#home{{QueationOption.id}}" class=" btn btnSelectTab btn-block" aria-controls="home1"
+                           role="tab" data-toggle="tab"
+                           (click)="Getbinddata(QueationOption,'Academic')">{{QueationOption.question_options}}</a>
+                      </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                      <div *ngFor="let QueationOption of Queation.question_options" role="tabpanel" class=""
+                           id="home{{QueationOption.id}}"
+                           [ngClass]="QueationOption.isSen==true?'active tab-pane marginT20': 'tab-pane marginT20'">
+
+                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-multipleSelect"
+                             *ngIf="QueationOption.type==1 && QueationOption.slug!='op82'">
+                          <ng-select [items]="QueationOption.DropDownText" [multiple]="true"
+                                     [addTag]="true"
+                                     placeholder="Select one or more items*" [(ngModel)]="QueationOption.Detail">
+                          </ng-select>
+                        </div>
+                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-multipleSelect"
+                             *ngIf="QueationOption.type==1 && QueationOption.slug=='op82'">
+                          <ng-select [items]="QueationOption.DropDownText" [multiple]="true"
+                                     placeholder="Select one or more items*" [(ngModel)]="QueationOption.Detail">
+                          </ng-select>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                  <a class="collapsed panelSection" id="aria2" role="button" data-toggle="collapse" data-parent="#accordion"
+                     href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    Work Experience
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body" *ngFor="let Queation of WorkExp">
+                  <div *ngIf="Queation.type==3">
+                    <h5><b id="{{Queation.slug}}">{{Queation.questions}} <span class="colorRed">*</span></b></h5>
+                    <div class="marginB4em">
+                      <!-- Nav tabs -->
+                      <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" *ngFor="let QueationOption of Queation.question_options"
+                            [ngClass]="QueationOption.isSen==true?'active col-md-4 col-xs-6 noPadding': 'col-md-4 col-xs-6 noPadding'">
+                          <a href="#home{{QueationOption.id}}" class="btn btnSelectTab btn-block" aria-controls="home1"
+                             role="tab" data-toggle="tab"
+                             (click)="Getbinddata(QueationOption,'Work_Experience')">{{QueationOption.question_options}}</a>
+                        </li>
+                      </ul>
+                      <!-- Tab panes -->
+                      <div class="tab-content">
+
+                        <div *ngFor="let QueationOption of Queation.question_options" role="tabpanel"
+                             id="home{{QueationOption.id}}"
+                             [ngClass]="QueationOption.isSen==true?'active tab-pane marginT20': 'tab-pane marginT20'">
+                          <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-multipleSelect"
+                               *ngIf="QueationOption.type==1">
+                            <ng-select [items]="QueationOption.DropDownText" [multiple]="true"
+                                       placeholder="Select one or more items*" [(ngModel)]="QueationOption.Detail">
+                            </ng-select>
+                          </div>
+                          <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-multipleSelect"
+                               *ngIf="QueationOption.type==2">
+                            <div class="panel-body" *ngFor="let Queation of WorkExp">
+                              <div *ngIf="Queation.type==4">
+                                <h5><b id="{{Queation.slug}}">{{Queation.questions}} <span class="colorRed">*</span></b></h5>
+                                <div class="marginB4em">
+
+                                  <!-- Nav tabs -->
+                                  <div class="row noMargin col-md-4 col-xs-12 noPadding"
+                                       *ngFor="let QueationOption of Queation.question_options">
+                                    <a href="#home{{QueationOption.slug}}" id="head{{QueationOption.slug}}"
+                                       class="btn btnSelectTab btn-default btn-block chageOption" data-toggle="collapse"
+                                       aria-expanded="false" (click)="GetbinddataEvent(QueationOption,'Work_Experience')">
+                                      {{QueationOption.question_options}}
+                                    </a>
+                                  </div>
+                                  <!-- Tab panes *ngIf="QueationOption.slug!='op73'"-->
+                                  <div class="row">
+                                    <div class="col-xs-12">
+                                      <div *ngFor="let QueationOption of Queation.question_options; Index as i"
+                                           class="collapse marginT20" id="home{{QueationOption.slug}}">
+                                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-multipleSelect"
+                                             *ngIf="QueationOption.type ==1 && QueationOption.slug=='op73' ">
+                                          <ng-select [items]="QueationOption.DropDownText" [multiple]="true"
+                                                     placeholder="Select Department related items*" [(ngModel)]="QueationOption.Detail">
+                                          </ng-select>
+                                        </div>
+                                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-multipleSelect"
+                                             *ngIf="QueationOption.type==1 && QueationOption.slug=='op74' ">
+                                          <ng-select [items]="QueationOption.DropDownText" [multiple]="true"
+                                                     placeholder="Select Industry related items*" [(ngModel)]="QueationOption.Detail">
+                                          </ng-select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                  <a class="collapsed panelSection" role="button" data-toggle="collapse" data-parent="#accordion"
+                     href="#collapseThree" id="aria3" aria-expanded="true" aria-controls="collapseThree">
+                    Skills & Others
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree" style="height:auto;">
+                <div class="panel-body" *ngFor="let Queation of hardSkill">
+                  <h5><b id="{{Queation.slug}}">{{Queation.questions}} <span class="colorRed">*</span></b></h5>
+                  <div class="marginB4em" *ngIf="Queation.slug=='q19'">
+
+                    <!-- Tab panes -->
+                    <div *ngFor="let QueationOption of Queation.question_options">
+                      <div [ngClass]="QueationOption.isSen==true?'active marginT20': 'marginT20'">
+                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-multipleSelect">
+                          <ng-select [items]="QueationOption.DropDownText" [multiple]="true"
+                                     placeholder="Select one or more items*" [(ngModel)]="QueationOption.Detail">
+                          </ng-select>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="marginB4em" *ngIf="Queation.slug=='q23'">
+
+                    <!-- Tab panes -->
+                    <div *ngFor="let QueationOption of Queation.question_options">
+                      <div [ngClass]="QueationOption.isSen==true?'active marginT20': 'marginT20'">
+                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-multipleSelect">
+                          <ng-select [items]="QueationOption.DropDownText" [multiple]="true"
+                                      [addTag]="true"
+                                     placeholder="Select one or more items*" [(ngModel)]="QueationOption.Detail">
+                          </ng-select>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="marginB4em" *ngIf="Queation.slug=='q24'">
+
+                    <!-- Tab panes -->
+                    <div *ngFor="let QueationOption of Queation.question_options">
+                      <div [ngClass]="QueationOption.isSen==true?'active marginT20': 'marginT20'">
+                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-multipleSelect">
+                          <ng-select [items]="QueationOption.DropDownText" 
+                                     [multiple]="true"
+                                      [addTag]="true"
+                                     placeholder="Select one or more items*" 
+                                     [(ngModel)]="QueationOption.Detail">
+                          </ng-select>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="marginB4em" *ngIf="Queation.slug=='q21'">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                      <li role="presentation" *ngFor="let QueationOption of Queation.question_options"
+                          [ngClass]="QueationOption.isSen==true?'active col-md-4 col-xs-6  noPadding paddingBottom': 'col-md-4 col-xs-6 noPadding paddingBottom'">
+                        <a href="#home{{QueationOption.id}}" class=" btn btnSelectTab btn-block" aria-controls="home1"
+                           role="tab" data-toggle="tab"
+                           (click)="Getbinddata(QueationOption,'hard_skill')">{{QueationOption.question_options}}</a>
+                      </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                      <div *ngFor="let QueationOption of Queation.question_options" role="tabpanel" class=""
+                           id="home{{QueationOption.id}}"
+                           [ngClass]="QueationOption.isSen==true?'active tab-pane marginT20': 'tab-pane marginT20'">
+
+
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="marginB4em" *ngIf="Queation.slug=='q22'">
+
+                    <!-- Tab panes -->
+                    <div *ngFor="let QueationOption of Queation.question_options">
+                      <div [ngClass]="QueationOption.isSen==true?'active marginT20': 'marginT20'">
+                        <div class="form-group pmd-textfield">
+                          <textarea [(ngModel)]="tellusmore" class="form-control"></textarea>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pmd-card-actions" *ngIf="showmessage">
+            <p class="colorRed">{{message}}</p>
+          </div>
+          <div class="pmd-card-actions">
+            <button (click)="onsaveClick()" class="btn pmd-ripple-effect btn-primary PrimaryButton pull-right">
+              Save
+              Profile
+            </button>
+            <button (click)="changeBack()"
+                    class="btn pmd-btn-outline pmd-ripple-effect btn-primary secondaryOutline pull-right">
+              Back
+            </button>
+            <button class="btn pmd-btn-outline pmd-ripple-effect btn-primary secondaryOutline" (click)="Clickcancel()">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--<div class="row marginT20" *ngIf="IsProfile">
+    <div class="col-xs-12">
+      <div class="col-lg-3 col-md-4 col-sm-6 marginB20" *ngFor="let profile of TalentProfileList ">
+        <div class="pmd-card pmd-z-depth height17">
+          <div class="pmd-card-title">
+
+            <a (click)="editprofile(profile.id)" class="pull-right" style="cursor:pointer">
+              <i class="material-icons">
+                edit
+              </i>
+            </a>
+
+
+          </div>
+          <div class="pmd-card-body">
+            <div class="thumbnail">
+              <img src="{{urlUser}}" alt="Alternate Text" />
+            </div>
+            <p class="text-center">
+              {{profile.name}}
+            </p>
+            <p class="text-center">
+              <small *ngFor="let Desp of profile.talent_profile_questions" class="text-capitalize">{{Desp.text}} &nbsp;</small>
+            </p>
+          </div>
+          <div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row marginT20" *ngIf="IsCreatProfileBut">
+    <div class="col-xs-12">
+      <div class="col-lg-3 col-md-4 col-sm-6 marginB20">
+        <div class="pmd-card-actions">
+          <button class="btn pmd-btn-flat pmd-ripple-effect btn-success" (click)="CreateProfile()"> Create Profile </button>
+
+        </div>
+      </div>
+    </div>
+  </div>-->
+</div>
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+      <div class="modal-header noMargin noBorder">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+    </div>
+     <div class="modal-body noMargin">
+   <p class="marginB20">Your Talent Profile has been created. Create a Job Ad for Free now!</p>
+
+   </div>
+   <div class="modal-footer noBorder paddingT0">
+     <button type="button" class="btn pmd-ripple-effect btn-primary PrimaryButton pull-right prt" (click)="redirectJob()" >Yes</button>
+     <button type="button" class="btn pmd-btn-outline pmd-ripple-effect btn-primary secondaryOutline" (click)="redirectDashboard()" >No</button>
+   </div>
+ </div>
+  </div>
+</div> 
+<!-- Cookie Model -->
+<div class="hideButton">
+  <button id="openCookieModal"  data-target="#cookie-dialog"  data-toggle="modal" class="marginR2">
+    </button>
+  </div>
+    <div tabindex="-1" class="modal fade" id="cookie-dialog" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-body">
+  
+              <h2>You have an unsaved Talent Profile. Do you wish to continue editing it?</h2>
+            </div>
+            <div class="pmd-modal-action text-right">
+              <button data-dismiss="modal" type="button" (click)="removeCookieData()" class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline">
+                  NO
+              </button>
+              <button data-dismiss="modal" type="button" (click)="setCookieData()" class="btn pmd-ripple-effect btn-success PrimaryButton">
+                  YES
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>

@@ -1,0 +1,148 @@
+page-user-profile {
+
+  ion-label {
+    margin: 0 !important;
+    background: #ffffff !important;
+  }
+
+  .item ion-avatar ion-img, .item ion-avatar img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+
+  .warning {
+    margin: 0;
+    padding: 1px 16px;
+  }
+
+  .secondary {
+    color: color($colors, dark);
+  }
+
+  .smallFont {
+    font-size: 1.2rem;
+  }
+
+  .description {
+    padding: 16px 16px 0 16px;
+  }
+
+  .background {
+    background-color: rgb(245, 245, 245) !important;
+
+    ion-list.profile {
+      -webkit-box-shadow: 0px 0px 4px 1px rgba(220, 220, 220, 1);
+      -moz-box-shadow: 0px 0px 4px 1px rgba(220, 220, 220, 1);
+      box-shadow: 0px 0px 4px 1px rgba(220, 220, 220, 1);
+
+      .noChildPadding .item-inner {
+        border-bottom: 0 !important;
+        padding: 0;
+
+        .heading {
+          font-size: 1.9rem;
+        }
+
+        .descriptionText small {
+          color: #365899;
+        }
+      }
+
+      .item ion-avatar img {
+        width: 45px;
+        height: 45px;
+      }
+
+      .imageSize img {
+        width: 100%;
+        border-radius: 0;
+      }
+
+      .imageSize {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+
+        .item-inner {
+          padding: 0 !important;
+        }
+
+        ion-label {
+          margin: 0 !important;
+          background: #ffffff !important;
+        }
+      }
+
+      .profileFooter {
+        background-color: color($colors, lightGray, base)
+      }
+    }
+  }
+
+  .ionWow {
+    float: left;
+    cursor: pointer
+  }
+
+  .wow {
+    background-color: color($colors, danger);
+    padding: 5px;
+    border-radius: 50%;
+  }
+
+  .ionComment {
+    float: right;
+    cursor: pointer
+  }
+
+  .notification * {
+    background: #f5f5f5 !important;
+  }
+
+  .tagButton {
+    font-size: 1rem;
+    padding: 5px 10px;
+    margin-top: -5px;
+    border-radius: 20px;
+  }
+
+  .course {
+    background-color: color($colors, course);
+    color: color($colors, white);
+  }
+
+  .entrepreneurial {
+    background-color: color($colors, part-time);
+    color: color($colors, white);
+  }
+
+  .knowledge {
+    background-color: color($colors, knowledge);
+    color: color($colors, white);
+  }
+
+  .personal {
+    background-color: color($colors, personal);
+    color: color($colors, white);
+  }
+
+  .sports {
+    background-color: color($colors, social);
+    color: color($colors, white);
+  }
+
+  .volunteering {
+    background-color: color($colors, volunteering);
+    color: color($colors, white);
+  }
+
+  .other {
+    background-color: color($colors, other);
+    color: color($colors, white);
+  }
+
+  .organisational {
+    background-color: color($colors, organisational);
+    color: color($colors, white);
+  }
+}

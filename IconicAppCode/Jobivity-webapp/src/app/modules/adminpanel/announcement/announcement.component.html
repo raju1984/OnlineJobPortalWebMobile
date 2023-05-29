@@ -1,0 +1,165 @@
+<app-admin-navbar></app-admin-navbar>
+<app-admin-sidebar id="basicSidebar" class="pmd-sidebar  sidebar-default pmd-sidebar-slide-push pm d-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons" role="navigation"></app-admin-sidebar>
+<ngx-spinner></ngx-spinner>
+<div id="content" class="pmd-content content-area dashboard">
+  <div class="container-fluid">
+    <div class="row " id="card-masonry">
+        <div class="col-xs-12 nopadding">
+            <div class="pmd-card pmd-z-depth pmd-card-custom-view">
+                <div class="pmd-tabs pmd-tabs-bg">
+                    <div class="pmd-tab-active-bar"></div>
+                    <ul role="tablist" class="nav nav-tabs nav-justified">
+                      <li class="active" role="presentation">
+                        <a data-toggle="tab"
+                           role="tab" aria-controls="home" href="#active" (click)="getAnnouncement('Active')">Active</a>
+                      </li>
+                      <li role="presentation">
+                        <a data-toggle="tab"
+                           role="tab" aria-controls="profile" href="#archive" (click)="getAnnouncement('Archive')">Archive</a>
+                      </li>
+                    </ul>
+               </div>
+               <div class="pmd-card-body">
+                  <div class="tab-content">
+                   
+                    <!-- Pending List -->
+                    <div role="tabpanel" class="tab-pane active" id="active">
+                        <div class="pmd-card-title-text">
+                            <a class="btn pmd-ripple-effect PrimaryButton btnclass" (click)="createAnnouncement()">
+                              Create
+                            </a> 
+                        </div>
+                      <div class="pmd-card pmd-z-depth-1 shadow-demo pmd-card-custom-view">
+                        <div class="pmd-table-card">
+                            <div *ngIf="announcementList?.length > 0">
+                                <table cellspacing="0" cellpadding="0" class="table table-bordered table-hover" id="table-bootstrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Poster</th>
+                                            <th>Status</th>
+                                            <th>Start Date</th>
+                                            <th>End Date </th>
+                                            <th>Url</th>
+                                            <th>Action</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                               <tr *ngFor="let record of announcementList  | paginate: { itemsPerPage: 20, currentPage: p }">
+                                             <td><a (click)="showPoster(record.id)" 
+                                              data-target="#lightbox-dialog"  data-toggle="modal" >
+                                                  {{record.announcement_poster}}</a></td>
+                                             <td>{{record.status}}</td>
+                                            <td>{{record.start_date}}</td>
+                                            <td>{{record.end_date}}</td>
+                                            <td>{{record.url}}</td>
+                                            <td><a (click)="onclickdata(record.id)"
+                                              data-target="#delete-dialog"  data-toggle="modal" class="btn btn-sm pmd-btn-outline pdm-ripple-effect grayIcon btnSmallIcon"><i
+                                                  class="material-icons">delete</i></a>
+                                            <a (click)="onStatusChange(record.id,'Archive')"
+                                              class="btn btn-sm pmd-btn-outline pdm-ripple-effect grayIcon btnSmallIcon"><i
+                                                class="material-icons">archive</i></a>
+                                              </td>
+                                           
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            </div>
+                            <div *ngIf="announcementList?.length  == 0" class="flexTop">
+                              <div class="table-noData flexAlignMiddle">No Announcement Yet
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                      <!-- Approved List -->
+                    <div role="tabpanel" class="tab-pane" id="archive">
+                      <div class="pmd-card pmd-z-depth-1 shadow-demo pmd-card-custom-view">
+                        <div class="pmd-table-card">
+                            <div class="pmd-card pmd-z-depth-1 shadow-demo pmd-card-custom-view">
+                                <div class="pmd-table-card">
+                                    <div *ngIf="announcementList?.length > 0">
+                                        <table cellspacing="0" cellpadding="0" class="table table-bordered table-hover" id="table-bootstrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Poster</th>
+                                                    <th>Status</th>
+                                                    <th>Start Date</th>
+                                                    <th>End Date </th>
+                                                    <th>Url</th>
+                                                    <th>Action</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                       <tr *ngFor="let record of announcementList  | paginate: { itemsPerPage: 20, currentPage: p }">
+                                                     <td><a (click)="showPoster(record.id)" 
+                                                      data-target="#lightbox-dialog"  data-toggle="modal" >
+                                                          {{record.announcement_poster}}</a></td>
+                                                     <td>{{record.status}}</td>
+                                                    <td>{{record.start_date}}</td>
+                                                    <td>{{record.end_date}}</td>
+                                                    <td>{{record.url}}</td>
+                                                    <td>
+                                                    <a (click)="onStatusChange(record.id,'Active')"
+                                                      class="btn btn-sm pmd-btn-outline pdm-ripple-effect grayIcon btnSmallIcon"><i
+                                                        class="material-icons">unarchive</i></a>
+                                                      </td>
+                                                   
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                    </div>
+                                    <div *ngIf="announcementList?.length  == 0" class="flexTop">
+                                      <div class="table-noData flexAlignMiddle">No Announcement Yet
+                                      </div>
+                                    </div>
+                                </div>
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                   </div>
+                 </div>
+              
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete Popup -->
+<!-- Pop Up for Archive Jobs -->
+<div tabindex="-1" class="modal fade" id="delete-dialog" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+
+        <h2>Are you sure you want to delete this Announcement</h2>
+      </div>
+      <div class="pmd-modal-action text-right">
+        <button data-dismiss="modal" type="button"  class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline">
+          Cancel
+        </button>
+        <button data-dismiss="modal" type="button" (click)="deletePoster()" class="btn pmd-ripple-effect btn-success PrimaryButton">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- The filename displayed in the “Poster” column shall be a hyperlink, -->
+
+<div tabindex="-1" class="modal fade" id="lightbox-dialog" style="display: none;" aria-hidden="true" >
+  
+  <div class="modal-dialog modal-lg">
+     
+    <div class="modal-content">
+            <span  data-dismiss="modal"  class="closeButton" (click)="removeImage()">&times;</span>
+        <img src="{{poster}}" style="width:100%">
+    
+    </div>
+  </div>
+</div>

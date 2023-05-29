@@ -1,0 +1,776 @@
+<ngx-spinner></ngx-spinner>
+<app-nav></app-nav>
+<title>Talent Summary</title>
+<div class="pmd-content inner-page noMargin">
+  <div class="container-fluid">
+    <div class="row spaveTop padding15">
+      <div class="col-xs-12">
+        <a href="javascript:void(0)"  (click)="onIconClick()"> <i class="material-icons pmd-md">keyboard_backspace</i> </a>
+      </div>
+      <div class="col-xs-12">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" [className]="edit == '0' ? 'active' : '' ">
+            <a href="#Summary" aria-controls="Summary" role="tab" data-toggle="tab">Summary</a>
+          </li>
+          <li role="presentation" [className]="edit == '1' ? 'active' : '' ">
+            <a href="#Jobs" (click)="listJob('Active')" aria-controls="Jobs" role="tab"
+              data-toggle="tab">Job Ads</a>
+            </li>
+          <li role="presentation">
+                <a href="#archiveJobs" (click)="listJob('Archive')" aria-controls="Jobs" role="tab"
+                  data-toggle="tab">Archive</a>
+              </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div role="tabpanel" [className]="edit=='0' ? 'tab-pane active' : 'tab-pane'"  id="Summary">
+            <div class="col-md-12">
+              <h1 class="colorTheme"><b>{{name}}</b></h1>
+            </div>
+          
+            <div class="col-sm-6">
+              <h3><b>Department:</b> {{department_name}}</h3>
+            </div>
+            <div class="col-md-6">
+              <h3><b> Position: </b><span>{{jobpostion}}</span></h3>
+            </div>
+            <div class="col-md-12">
+              <h3><b>Job Role & Scope: </b>
+                <!-- <span>{{Description}}</span> -->
+              </h3>
+              <ul *ngFor="let data of desArray">
+                <li>{{data.text}}</li>
+              </ul>
+            </div>
+            <hr>
+            <div class="col-md-12">
+              <h2 class="colorTheme"><b>Academic</b> </h2>
+              <div *ngFor="let Queation of academic" class="row noMargin">
+                <h5><b>{{Queation.questions}}
+                    <!--Does the candidate require a degree?--></b></h5>
+                <div *ngFor="let QueationOption of Queation.question_options">
+                  <div *ngIf="QueationOption.isSen == true">
+                    <div *ngIf="QueationOption.Detail.length > 0; then content else other_content">
+                    </div>
+                    <ng-template #content>
+                      <ul>
+                        <li> <b>{{QueationOption.question_options}} </b></li>
+                        <ul *ngFor="let Details of QueationOption.Detail">
+                            <li>{{Details.label}}</li>
+                          </ul>
+                        
+                      </ul>
+                      <!-- <div *ngFor="let Details of QueationOption.Detail">
+                        {{Details.label}}
+                      </div> -->
+                    </ng-template>
+                    <ng-template #other_content>
+                      {{QueationOption.question_options}}
+                    </ng-template>
+                  </div>
+                </div>
+
+              </div>
+              <h2 class="colorTheme"><b>Work Experience</b> </h2>
+              <div *ngFor="let Queation of WorkExp">
+                <div *ngIf="Queation.type==3">
+                  <h5><b>{{Queation.questions}}</b></h5>
+                  <div *ngFor="let QueationOption of Queation.question_options">
+                    <div *ngIf="QueationOption.isSen==true">
+                      {{QueationOption.question_options}}
+                      <div *ngIf="Queation.slug == 'q17' && QueationOption.question_options === 'Yes'">
+                        <div *ngFor="let Queation1 of WorkExp">
+                          <div *ngIf="Queation1.slug =='q20'">
+                            <h5><b>{{Queation1.questions}}</b></h5>
+                            <div *ngFor="let QueationOption1 of Queation1.question_options">
+                              <div *ngIf="QueationOption1.isSen==true">
+                                <div *ngIf=" QueationOption1.Detail.length > 0 ; then content else other">
+                                </div>
+                                <ng-template #content>
+                                  <div *ngFor="let Details of QueationOption1.Detail">
+                                    {{Details.label}}
+                                  </div>
+                                </ng-template>
+                                <ng-template #other>
+                                  {{QueationOption1.question_options}}
+                                </ng-template>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h2 class="colorTheme"><b>Skills & Others</b> </h2>
+              <div *ngFor="let Queation of hardSkill">
+                <div *ngIf="Queation.slug=='q19'">
+
+                  <h5><b>{{Queation.questions}}</b></h5>
+                  <div *ngFor="let QueationOption of Queation.question_options">
+                    <div *ngFor="let detail of QueationOption.Detail">
+                      {{detail.label}}
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="Queation.slug=='q21'">
+                  <h5><b>{{Queation.questions}}</b></h5>
+                  <div *ngFor="let QueationOption of Queation.question_options">
+                    <div *ngIf="QueationOption.isSen==true">
+                      {{QueationOption.question_options}}
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="Queation.slug=='q23'">
+                  <h5><b>{{Queation.questions}}</b></h5>
+                  <div *ngFor="let QueationOption of Queation.question_options">
+                    <div *ngFor="let detail of QueationOption.Detail">
+                      {{detail.label}}
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="Queation.slug=='q24'">
+                  <h5><b>{{Queation.questions}}</b></h5>
+                  <div *ngFor="let QueationOption of Queation.question_options">
+                    <div *ngFor="let detail of QueationOption.Detail">
+                      {{detail.label}}
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="Queation.slug=='q22'">
+                  <h5><b>{{Queation.questions}}</b></h5>
+                  <div>
+                    {{tellusmore}}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- Active Job -->
+          <div role="tabpanel" [className]="edit=='1' ? 'tab-pane active' : 'tab-pane'" id="Jobs">
+            <div class="col-xs-12 text-right padding15">
+              <button class="btn btn-primary PrimaryButton"  (click)="oncreate()"> Create Job Ad</button>
+              <div class="hideButton">
+              <button id="openModalButton" type="button" class="btn btn-primary PrimaryButton"  data-toggle="modal" data-target="#myModal">
+                Open Job Ad
+              </button>
+              </div>
+            </div>
+            <div class="col-xs-12 ">
+              <div class="pmd-card pmd-z-depth">
+                <div class="pmd-card-body">
+                  <div class="row">
+                    <div class="col-xs-12 nopadding">
+                        <div  *ngIf="talentJobList?.length > 0">
+                      <table class="table pmd-table table-striped table-mc-red">
+                        <thead>
+                          <tr>
+                            <th>Title</th>
+                            <th>Salary</th>
+                            <th>No. of Vacancies</th>
+                            <th>Location</th>
+                            <th>Job Type</th>
+                            <th>Timings</th>
+                            <th>Expire In</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let data of talentJobList">
+                            <td data-title="Title">{{data.title}}</td>
+                            <td data-title="Salary">RM{{data.min_salary}} to RM{{data.max_slaray}}</td>
+                            <td data-title="Vacancy">{{data.no_of_vacancy}}</td>
+                            <td data-title="Location">{{data.stateName}}</td>
+                            <td data-title="JobType">{{data.job_type}}</td>
+                            <td data-title="Timings">{{data.join_time}}</td>
+                            <td data-title="Expire In">
+                                <span *ngIf="data.expireDays == '0'">Today</span>
+                                <span *ngIf="data.expireDays > 0"> {{data.expireDays}} Days</span>
+                                <span *ngIf ="data.expireDays == '-1' ">Expired</span> 
+                            </td>
+                            <td data-title="status">
+                                <span *ngIf="data.job_status == 'Pending'">Submitted for Approval</span>
+                                <span *ngIf="data.job_status == 'Approved'">Active</span>
+                                <span *ngIf ="data.job_status == 'Reject' " class="curPointer" data-target="#reject-reason-dialog"  data-toggle="modal" (click)="getAllReason(data.id)">Amendment Required</span>
+                              </td>
+                            <td data-title="Action" class="row-inline">
+                              <a (click)="editJobData(data.id)" data-toggle="modal" data-target="#myModal"
+                                class="btn btn-sm pmd-btn-outline pmd-ripple-effect grayIcon btnSmallIcon">
+                                <i class="material-icons" *ngIf="data.job_status == 'Approved' || data.job_status == 'Pending' ">pageview</i>
+                                <i class="material-icons" *ngIf="data.job_status == 'Reject'">edit</i>
+                              </a>
+                              <a (click)="cloneJobData(data.id)" data-toggle="modal" data-target="#myModal"
+                                  class="btn btn-sm pmd-btn-outline pmd-ripple-effect grayIcon btnSmallIcon"><i
+                                    class="material-icons">content_copy</i></a>
+                              <span *ngIf="data.expireDays == '-1' as value; else elseBlock">
+                                <a (click)="directdeleteJobData(data.id)" class="btn btn-sm pmd-btn-outline pdm-ripple-effect grayIcon btnSmallIcon"><i
+                                    class="material-icons">delete</i></a>
+                                </span> 
+                              <ng-template #elseBlock>
+                                  <a (click)="editJobData(data.id)"
+                                  data-target="#archive-dialog"  data-toggle="modal" class="btn btn-sm pmd-btn-outline pdm-ripple-effect grayIcon btnSmallIcon"><i
+                                      class="material-icons">delete</i></a>
+                              </ng-template>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div *ngIf="talentJobList?.length   == 0" class="flexTop">
+                        <div class="table-noData flexAlignMiddle">No Job Ads Available Yet
+                        </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- Archive Job -->
+          <div role="tabpanel" class="tab-pane" id="archiveJobs">
+            
+             <div class="col-xs-12 ">
+                <div class="pmd-card pmd-z-depth margin70">
+                  <div class="pmd-card-body">
+                    <div class="row">
+                      <div class="col-xs-12 nopadding">
+                        <div  *ngIf="talentJobList?.length > 0">
+                        <table class="table pmd-table table-striped table-mc-red">
+                          <thead>
+                            <tr>
+                              <th>Title</th>
+                              <th>Salary</th>
+                              <th>No. of Vacancies</th>
+                              <th>Location</th>
+                              <th>Job Type</th>
+                              <th>Timings</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let data of talentJobList">
+                              <td data-title="Title">{{data.title}}</td>
+                              <td data-title="Salary">RM{{data.min_salary}} to RM{{data.max_slaray}}</td>
+                              <td data-title="Vacancy">{{data.no_of_vacancy}}</td>
+                              <td data-title="Location">{{data.stateName}}</td>
+                              <td data-title="JobType">{{data.job_type}}</td>
+                              <td data-title="Timings">{{data.join_time}}</td>
+                             
+                            </tr>
+                          </tbody>
+                        </table>
+                        </div>
+                        <div *ngIf="talentJobList?.length  == 0" class="flexTop">
+                            <div class="table-noData flexAlignMiddle">No Archive Job Ads Available Yet
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div  class="modal fade bs-example-modal-lg" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document" >
+      <div class="modal-content"  >
+        <div class="modal-body">
+          <div class="row">
+            <!-- Job Add -->
+            <div class="col-xs-12">
+             <div *ngIf="previewScreen"> 
+              <form [formGroup]="AddJobsForm">
+                <div class="group-fields clearfix row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group pmd-textfield ">
+                      <label for="regular1" class="control-label">
+                        Position Title*
+                      </label>
+                      <input class="form-control iconSearch"  formControlName="title" type="text" [readonly]="isReadOnly"
+                        value="Name Of the Position" [(ngModel)]="name"  aria-describedby="basic-addon1" >
+                      <div *ngIf="submitted && f.title.errors" class="invalid-feedback warning">
+                        <div *ngIf="f.title.errors.required">Title is required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="group-fields clearfix row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group pmd-textfield">
+                      <label for="regular1" class="control-label">
+                        Job Type
+                      </label>
+                      <select name="job_type" formControlName="job_type" class="form-control inputH">
+                        <option value="" disabled selected>Select Job Type</option>
+                        <option [disabled]="isReadOnly" *ngFor="let jobty of JobTypeList" [ngValue]="jobty.value">{{jobty.text}}</option>
+                       
+                      </select>
+                      <div *ngIf="submitted && f.job_type.errors" class="invalid-feedback warning">
+                        <div *ngIf="f.job_type.errors.required">Job Type is required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="group-fields clearfix row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group pmd-textfield">
+                      <label for="regular1" class="control-label">
+                        Nationality
+                      </label>
+                      <select name="nationality_id" formControlName="nationality_id" class="form-control inputH"  >
+                        <option value="" disabled selected>Select Nationality</option>
+                        <option [disabled]="isReadOnly" *ngFor="let natty of NationalityTypeList" [ngValue]="natty.value">{{natty.text}}</option>
+                      </select>
+                      <div *ngIf="submitted && f.nationality_id.errors" class="invalid-feedback warning">
+                        <div *ngIf="f.nationality_id.errors.required">Nationality is required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="group-fields clearfix row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group pmd-textfield">
+                      <div class="col-sm-12 paddingLR0">
+                        <label for="regular1" class="control-label">
+                          Job Summary & Description*
+                        </label>
+                      </div>
+                      <!--<input type="text" class="form-control" required [(ngModel)]="descripetion">-->
+                      <textarea rows='5'  name="descriptions" formControlName="descriptions"
+                      class="form-control" [readonly]="isReadOnly">line1.&#13;&#10;line2.&#13;&#10;line3.</textarea>
+                      <!-- <textarea #ref rows='5'
+                        class="form-control">line1.&#13;&#10;line2.&#13;&#10;line3.</textarea> -->
+                      <div *ngIf="submitted && f.descriptions.errors" class="invalid-feedback warning">
+                        <div *ngIf="f.descriptions.errors.required">Description is required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="group-fields clearfix row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group pmd-textfield row">
+                      <div class="col-xs-12">
+                        <label for="regular1" class="control-label">
+                          Salary Range*
+                        </label>
+                      </div>
+                      <div class="col-xs-6">
+                        <div class="input-group SalaryFrom">
+                          <span class="input-group-addon" id="basic-addon1">RM</span>
+                          <input type="number" class="form-control" formControlName="min_salary" placeholder="from"
+                            aria-describedby="basic-addon1" [readonly]="isReadOnly" >
+                          <div *ngIf="submitted && f.min_salary.errors" class="invalid-feedback warning">
+                            <div *ngIf="f.min_salary.errors.required">Minimum Salary is required</div>
+                          </div>
+                          <div *ngIf="submitted && f.min_salary.errors" class="invalid-feedback warning">
+                            <div *ngIf="f.min_salary.errors.min">Minimum Salary should be equals to 1 or greater</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xs-6">
+                        <div class="input-group SalaryFrom">
+                          <span class="input-group-addon" id="basic-addon1">RM</span>
+                          <input type="number" class="form-control" formControlName="max_slaray" placeholder="to"
+                            aria-describedby="basic-addon1" [readonly]="isReadOnly" >
+                          <div *ngIf="submitted && f.max_slaray.errors" class="invalid-feedback warning">
+                            <div *ngIf="f.max_slaray.errors.required">Maximum Salary is required</div>
+                          </div>
+                          <div class="invalid-feedback warning"
+                          *ngIf="AddJobsForm.get('max_slaray').touched && AddJobsForm.errors?.maxValue == true" style="color: red">
+                          Maximum Salary should be equals or greater than Minimum Salary
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="group-fields clearfix row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group pmd-textfield ">
+                      <label for="regular1" class="control-label">
+                        No. of Vacancies*
+                      </label>
+                      <input class="form-control iconSearch" formControlName="no_of_vacancy" type="number"
+                        value="No. of Vacancies"   aria-describedby="basic-addon1" [readonly]="isReadOnly" />
+                      <div *ngIf="submitted && f.no_of_vacancy.errors" class="invalid-feedback warning">
+                        <div *ngIf="f.no_of_vacancy.errors.required">No. Of Vacancies  is required</div>
+                      </div>
+                      <div *ngIf="submitted && f.no_of_vacancy.errors" class="invalid-feedback warning">
+                        <div *ngIf="f.no_of_vacancy.errors.min">Number of Vacancy should be equals to 1 or greater</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="group-fields clearfix row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group pmd-textfield">
+                      <label for="regular1" class="control-label">
+                        Location for Position*
+                      </label>
+
+                      <select name="state_id" formControlName="state_id" class="form-control inputH"
+                        *ngIf="StateList != undefined" >
+                        <option value="" disabled selected>Select State</option>
+                        <option [disabled]="isReadOnly" *ngFor="let states of StateList" [ngValue]="states.id">{{states.state_name}}</option>
+                      </select>
+                      <div *ngIf="submitted && f.state_id.errors" class="invalid-feedback warning">
+                        <div *ngIf="f.state_id.errors.required">Location is required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="group-fields clearfix row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group pmd-textfield">
+                      <label for="regular1" class="control-label">
+                        When do you need this Talent to join?
+                      </label>
+                      <select name="join_time" formControlName="join_time" class="form-control inputH" >
+                        <option value="" disabled selected>Select Join Time</option>
+                        <option [disabled]="isReadOnly" *ngFor="let jointime of JoinTimeList" [ngValue]="jointime.value">{{jointime.text}}</option>
+                      </select>
+                      <div *ngIf="submitted && f.join_time.errors" class="invalid-feedback warning">
+                        <div *ngIf="f.join_time.errors.required">Timing is required</div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="group-fields clearfix row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group pmd-textfield">
+                      <label for="regular1" class="control-label">
+                        First interview question *
+                      </label>
+                      <select name="questions" formControlName="questions1" class="form-control inputH"
+                      (change)="GetQuestionList2();" >
+                        <option value="" disabled selected>Select Question</option>
+                        <option [disabled]="isReadOnly" *ngFor="let ques of QuestionList" [ngValue]="ques.id">{{ques.question}}</option>
+                      </select>
+                      <div *ngIf="submitted && f.questions1.errors" class="invalid-feedback warning">
+                        <div *ngIf="f.questions1.errors.required">First interview question is required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="group-fields clearfix row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group pmd-textfield">
+                      <label for="regular1" class="control-label">
+                        Second interview question *
+                      </label>
+                      <select name="questions" formControlName="questions2" class="form-control inputH"
+                      (change)="GetQuestionList3();">
+                        <option value="" disabled selected>Select Question</option>
+                        <option [disabled]="isReadOnly" *ngFor="let ques of QuestionList2" [ngValue]="ques.id">{{ques.question}}</option>
+                      </select>
+                      <div *ngIf="submitted && f.questions2.errors" class="invalid-feedback warning">
+                        <div *ngIf="f.questions2.errors.required">Second interview question is required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               
+                <div class="group-fields clearfix row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group pmd-textfield">
+                      <label for="regular1" class="control-label">
+                        Last interview question *
+                      </label>
+                      <select name="questions"  formControlName="questions3" class="form-control inputH" >
+                        <option value="" disabled selected>Select Question</option>
+                        <option [disabled]="isReadOnly" *ngFor="let ques of QuestionList3" [ngValue]="ques.id">{{ques.question}}</option>
+                      </select>
+                      <div *ngIf="submitted && f.questions3.errors" class="invalid-feedback warning">
+                        <div *ngIf="f.questions3.errors.required">Last interview question is required </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="group-fields clearfix row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group pmd-textfield">
+                      <label for="regular1" class="control-label">
+                        How long do you want this Job Ad to run? (3 to 14 days)*
+                      </label>
+                    
+                      <input class="alert-input date-input" formControlName="expire_date" name="dob" [min]="min" [max]="max"  type="date"  class="form-control inputH">
+                    </div>
+                  </div>
+                </div> -->
+                <div class="group-fields clearfix row">
+                    <div class="col-sm-6 col-xs-12">
+                      <div class="form-group pmd-textfield" *ngIf="isReadOnly">
+                          <label for="regular1" class="control-label">
+                              How long do you want this Job Ad to run? (including 1 business day for approval)*
+                          </label>
+                         
+                          <input  type="text" placeholder="MM/DD/YYYY" class="form-control" readonly formControlName="expire_date"
+                            class="form-control inputH">
+                            
+                      </div>
+                      <div class="form-group pmd-textfield" *ngIf="!isReadOnly">
+                        <label for="regular1" class="control-label">
+                            How long do you want this Job Ad to run? (including 1 business day for approval)*
+                        </label>
+                       
+                        <input  type="text"
+                          placeholder="MM/DD/YYYY"
+                          class="form-control"
+                          placement="top"
+                          readonly
+                          formControlName="expire_date"
+                          bsDatepicker [minDate]="minDate"
+                          [maxDate]="maxDate"
+                          [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', containerClass: 'theme-blue',showWeekNumbers: false }"
+                          (Change)="compareTwoDates()"
+                          class="form-control inputH"
+                          >
+                          <div *ngIf="submitted && f.expire_date.errors" class="invalid-feedback warning">
+                              <div *ngIf="f.expire_date.errors.Passinvalid">Please specify a date that is within the valid range.</div>
+                            </div>
+                      </div>
+                    </div>
+                  </div>
+                 
+               
+                <div class="group-fields clearfix row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group pmd-textfield">
+                        <input type="checkbox"  class="largerCheckbox" [checked]="itemChecked" (change)="toggleVisibility($event)" [disabled]="isReadOnly"  >
+                       <label for="regular1" class="control-label">
+                         Do not display company name in job ads
+                       </label>
+                    </div>
+                  </div>
+                </div>
+              
+              </form>
+             
+             
+              
+             </div>
+            <!--Preview Screen  -->
+            <div *ngIf="!previewScreen">
+              <div class="col-md-5 col-md-offset-3 col-xs-12">
+                 <div class="smartphone">
+                     <div class="content">
+                         <div class="flexClass paddingB0">
+                           
+                           <div class="flexChild2">
+                             <img *ngIf="!company_visible" src="{{com_logo}}" alt="" style="max-width: 85px; max-height: 85px;" 
+                             onError="this.src = 'https://static.thenounproject.com/png/621754-200.png'">
+                             <span *ngIf="company_visible"><i class="material-icons md-dark pmd-md">business</i></span>
+                           </div>
+                           <div class="flexChild1">
+                             <p class="themeColor">{{this.AddJobsForm.value.title}}</p>
+                             <p *ngIf="!company_visible">{{comName}}</p>
+                             <p *ngIf="company_visible">Undisclosed Company</p>
+                             <p><small><small class="text-muted">RM {{this.AddJobsForm.value.min_salary}} - RM {{this.AddJobsForm.value.max_slaray}} · {{stateType}} · {{jstoday}}</small></small></p>
+                             <p><small><small class="text-muted">Job Type: {{JobType}}</small></small></p>
+                             <p><small><small class="text-muted">Number of Vacancies: {{this.AddJobsForm.value.no_of_vacancy}}</small></small></p>
+                             <p><small><small class="text-muted">Expire In : 
+                              <span *ngIf="expireDays == '0'">Today</span>
+                              <span *ngIf="expireDays > 0"> {{expireDays}} Days</span>
+                              <span *ngIf ="expireDays == '-1' ">Expired</span> </small></small></p>
+                             <button class="btn btn-primary btn-sm"> Apply Now</button>
+                           </div>
+                         </div>
+                         <div class="flexClassP paddingTB0 marginB10">
+                            <p class="noMargin"><b> Position Level </b></p>
+                             <ul class="circleUL">
+                                <li><small>{{jobpostion}}</small></li>
+                            </ul>
+                          </div>
+                         
+                            <div class="flexClassP paddingTB0 marginB10">
+                                <p class="noMargin"><b>Job Role & Scope</b></p>
+                                <ul class="circleUL" >
+                                    <li *ngFor="let data of desArray"><small>{{data.text}}</small></li>
+                                  </ul>
+                            </div>
+                            <div class="flexClassP paddingTB0 marginB10">
+                                <p class="noMargin"><b>Minimun Academic Requirement</b></p>
+                                <div *ngFor="let Queation of academic" >
+                                    <div *ngFor="let QueationOption of Queation.question_options">
+                                      <div *ngIf="QueationOption.isSen == true">
+                                       
+                                            <ul  class="circleUL" *ngIf="QueationOption.slug =='op57'|| QueationOption.slug =='op58' || QueationOption.slug =='op59' || QueationOption.slug =='op78'|| QueationOption.slug =='op79'|| QueationOption.slug =='op82'">
+                                                <li > <small>Qualification: {{QueationOption.question_options}}</small></li> 
+                                                <li *ngIf="QueationOption.Detail !=''"> <small>Fields of Study: {{QueationOption.Detailpreview}}</small> </li>
+                                              </ul>
+                                      
+                                      </div>
+                                    </div>
+                                  </div>
+                             </div>
+
+                              <div class="flexClassP paddingTB0 marginB10">
+                                  <p class="noMargin"><b>Previous Work Experience Requirement</b></p>
+                                  <div *ngFor="let Queation of WorkExp">
+                                      <div *ngFor="let QueationOption of Queation.question_options">
+                                          <ul  class="circleUL" *ngIf="QueationOption.isSen==true">
+                                            <li  *ngIf="Queation.slug=='q17'"> <small>Prior Work Experience Required: {{QueationOption.question_options}}</small></li>
+                                            <li   *ngIf="Queation.slug=='q20' && QueationOption.slug=='op73' && QueationOption.Detail !=''"> <small>Relevant Departments: {{QueationOption.Detailpreview}} </small></li>
+                                            <li   *ngIf="Queation.slug=='q20' && QueationOption.slug=='op74' && QueationOption.Detail !=''"> <small>Relevant Industries: {{QueationOption.Detailpreview}} </small></li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                              </div>
+                              
+                          <div class="flexClassP paddingTB0 marginB10">
+                              <p class="noMargin"><b>Hard Skills Requirement</b></p>
+                              <div *ngFor="let Queation of hardSkill">
+                                  <div *ngIf="Queation.slug=='q19'">
+                                    <div *ngFor="let QueationOption of Queation.question_options">
+                                        <ul class="circleUL">
+                                            <li  *ngFor="let detail of QueationOption.Detail"><small> {{detail.label}}</small></li>
+                                        </ul>                 
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+                         <div class="flexClassP paddingTB0">
+                           <p class="noMargin"><b> Job description </b></p>
+                           <p class="textPreWrap"><small>{{this.AddJobsForm.value.descriptions}} </small> </p>
+                         </div>
+                         
+                     </div>
+                   </div>
+              </div>  
+            </div>
+            
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div *ngIf="previewScreen">
+              <button  (click)="closeModel()"  id="deleteData" data-dismiss="modal" type="button"
+                class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline" #closeAddExpenseModal>
+                DISCARD
+              </button>
+            
+              <button  type="button" class="btn btn-primary PrimaryButton" (click)="previewJobs()">Preview Job Ad</button>
+            </div>    
+          
+          <div *ngIf="!previewScreen">
+              <button (click)="previewBack()"  type="button" 
+              class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline">
+              BACK
+            </button>
+            <button *ngIf="!isReadOnly" type="button" class="btn btn-primary PrimaryButton" (click)="addJobs()" data-dismiss="modal" >Submit for Approval
+            </button>
+           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- cookie popup -->
+<div class="hideButton">
+<button id="openCookieModal"  data-target="#cookie-dialog"  data-toggle="modal" class="marginR2">
+  </button>
+</div>
+  <div tabindex="-1" class="modal fade" id="cookie-dialog" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+
+            <h2>You have an unsaved Job Ads. Do you wish to continue editing it?</h2>
+          </div>
+          <div class="pmd-modal-action text-right">
+            <button data-dismiss="modal" type="button" (click)="removeCookieData()" class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline">
+                NO
+            </button>
+            <button data-dismiss="modal" type="button" (click)="setCookieData()" class="btn pmd-ripple-effect btn-success PrimaryButton">
+                YES
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- pOP after create job  -->
+<div class="hideButton">
+  <button id="confirmJobModel"  data-target="#jobconfirmModel"  data-toggle="modal" class="marginR2">
+    </button>
+  </div>
+    <div tabindex="-1" class="modal fade" id="jobconfirmModel" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-body">
+  
+              <h2>Your Job Ad has been sent for approval. You will get your Job Ad status via email within 1 business day if your account has been verified.</h2>
+            </div>
+            <div class="pmd-modal-action text-right">
+             
+              <button data-dismiss="modal" type="button"  class="btn pmd-ripple-effect btn-success PrimaryButton">
+                  Ok
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- Pop Up for Archive Jobs -->
+<div tabindex="-1" class="modal fade" id="archive-dialog" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+
+        <h2>Deleting this Job Ad will permanently stop the Job Ad from running. You cannot undo this action. Are you sure you want to delete this Job Ad?</h2>
+      </div>
+      <div class="pmd-modal-action text-right">
+        <button data-dismiss="modal" type="button"  class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline">
+          Cancel
+        </button>
+        <button data-dismiss="modal" type="button" (click)="deleteJobData()" class="btn pmd-ripple-effect btn-success PrimaryButton">
+          Archive
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Reject reason Pop uP -->
+<div tabindex="-1" class="modal fade" id="reject-reason-dialog" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+
+        <p>{{jobName}}</p> 
+        <ul class="list-group pmd-z-depth pmd-list pmd-card-list height60">
+        <div *ngIf="!reasonArray || reasonArray.length === 0">
+                <p class="marginL2">No Comment</p>
+          </div>
+       
+          <li class="list-group-item" *ngFor="let comments of reasonArray" >
+            <div class="media-body">
+              
+              <p class="list-group-item-text text-dark">{{comments.reasons}}</p>
+              <span class="list-group-item-text text-size">{{comments.created_att}}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="pmd-modal-action text-right">
+        <button data-dismiss="modal" type="button"  class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline">
+          Discard
+        </button>
+       
+      </div>
+    </div>
+  </div>
+</div>

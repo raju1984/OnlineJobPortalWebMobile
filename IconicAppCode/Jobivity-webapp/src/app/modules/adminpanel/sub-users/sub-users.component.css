@@ -1,0 +1,29 @@
+.modal-lg {
+    width: 600px !important;
+}
+.inputH{
+    height: 40px;
+}
+.pmd-input-group-label {
+     padding-left: 0px !important; 
+}
+.warning{
+    color:red;
+}
+.marginB2{
+    float:right;
+}
+.btn-clipboard{
+    background-color: #4285f4;
+}
+.passwordClass {
+    border: none;
+    padding-left: 10px;
+}
+.passwordClass:focus {
+    border: none;
+    outline: none;
+}
+.paddingL10 {
+    padding-left: 10px;
+}

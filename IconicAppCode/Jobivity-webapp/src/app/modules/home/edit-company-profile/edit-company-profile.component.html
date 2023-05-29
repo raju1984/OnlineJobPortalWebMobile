@@ -1,0 +1,180 @@
+<ngx-spinner></ngx-spinner>
+<app-nav></app-nav>
+<div id="content" class="pmd-content content-area dashboard">
+    <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-6 col-md-offset-3 col-xs-12">
+              <div class="pmd-card pmd-z-depth">
+            <form [formGroup]="editCompanyProfileForm">
+              <div class="pmd-card-body">
+                <div class="col-md-12  noPadding">
+                    <div class="paddingL50">
+                       <div class="col-md-6 companyDetail">
+                          <h3><b>  Company Name </b> <br><small> {{company_name}} </small></h3>
+                          <h3><b>  Company Address </b> <br><small> {{address1}} <br> {{area}} <br> {{postal_code}} <br> {{state_name}} <br> {{country_name}}</small> </h3>
+                          <h3><b>  Primary Industry </b> <br> <small>{{industry_name}}</small> </h3>
+                          <h3><b>  Company Size </b> <br> 
+                          <div *ngIf="size_of_company == '1'; else notShow">
+                            <small >
+                              myself only
+                            </small>
+                          </div>
+                           <ng-template #notShow>
+                            <small >{{size_of_company}}</small>
+                          </ng-template></h3>
+                          <h3><b>  Company Category </b> <br> <small>{{category_name}}</small></h3>
+                        </div>
+                        <div class="col-md-6 companyDetail">
+                            <h3><b>  Bussiness Registration No </b> <br> <small>{{registration_no}}</small></h3>
+                       </div>
+                      
+                    </div>
+                
+                </div>
+                <div class="col-md-12  noPadding">
+                  <div class="stry" >
+                      <h2><small>To update the above information, email us at <a href="{{emailid}}" >employer@jobtiviti.com</a>.</small> </h2>
+                    </div>
+               </div>
+                <div class="col-md-12 pt-3">
+                    <div class="form-group">
+                        <div class="paddingL50">
+                           
+                        <span *ngIf="!imageShow"> 
+                           
+                            <img src="{{logo}}"
+                               style="max-width: 85px; max-height: 85px;" alt=""
+                              onError="this.src = 'https://static.thenounproject.com/png/621754-200.png'"><br/>
+                            <input type="file"  accept="image/*"  (change)="fileChangeEvent($event)" placeholder="Upload Image" id="upload-image">
+                            <label for="upload-image">
+                              <a style="cursor:pointer;" class="text-primary">
+                                <span *ngIf="!logo">Upload Logo</span>
+                                <span *ngIf="logo">Change Logo</span>
+                              </a>
+                            </label>
+                        </span>
+                        <span *ngIf="imageShow"> 
+                            <span class="pull-right cursorClass"  (click)="backbutton()">&times;</span>
+                          <div>
+                              <image-cropper  [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+                                [aspectRatio]="4 / 3" [resizeToWidth]="100" format="png" (imageCropped)="imageCropped($event)" >
+                              </image-cropper>
+                            </div>
+                            <div class="flex">
+                              <div class="flex1 borderOn">
+                                  <img [src]="croppedImage" />
+                              </div>
+                              <div class="flex1">
+                                  <button (click)="uploadImage()" class="btn pmd-ripple-effect btn-primary btn-login paddingTB10LR14">Upload</button> &nbsp;
+                                  <input type="file"  accept="image/*"  (change)="fileChangeEvent($event)" placeholder="Upload Image" id="upload-card">
+                                  <label for="upload-card"><a style="cursor:pointer;" class="text-primary btn pmd-ripple-effect btn-primary btn-login paddingTB10LR14">Change</a></label>
+                              </div>
+                                
+                            </div>
+                              
+                       </span>
+                       </div>
+                       <div *ngIf="submitted" class="invalid-feedback warning">
+                        <div *ngIf="logoValidate">You need to upload your company logo.</div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="paddingL50">
+                          <label for="inputError1" class="control-label pmd-input-group-label noPadding">About Company</label>
+                          <textarea rows="5" cols="50" formControlName="about_company" type="text"
+                            placeholder="e.g. Jobtiviti is a Malaysian tech startup with a vision to connect as many companies with the right young talent. Established in 2019, Jobtiviti has grown into a 20-people team and went live in June with our tagline – You are more than your resume." class="form-control"
+                            id="exampleInputAmount"></textarea>
+                        </div>
+                        <div *ngIf="submitted && f.about_company.errors" class="invalid-feedback warning">
+                          <div *ngIf="f.about_company.errors.required">About Company is required</div>
+                        </div>
+                        <div *ngIf="submitted && f.about_company.errors" class="invalid-feedback warning">
+                          <div *ngIf="f.about_company.errors.minlength ">About Company must be at least 20 characters long
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="paddingL50">
+                          <label for="inputError1" class="control-label pmd-input-group-label noPadding">Company Business
+                            Profile</label>
+                          <textarea required rows="5" cols="50" name="text" formControlName="business_profile" type="text"
+                            placeholder="e.g. With a mission to connect as many companies with the right young talent, Jobtiviti offers hiring companies with a freemium end-to-end recruitment service. Companies using Jobtiviti can use Jobtiviti to post Job Ad, receive recommended talents, send pre-screening video requests and connect with desired talent, for free. Jobseekers use our Mobile App to build a comprehensive Jobseeking profile on top of their Resume and apply to Job Vacancies!" class="form-control"
+                            id="exampleInputAmount"></textarea>
+                        </div>
+                        <div *ngIf="submitted && f.business_profile.errors" class="invalid-feedback warning">
+                          <div *ngIf="f.business_profile.errors.required">Company Business Profile is required</div>
+                        </div>
+                        <div *ngIf="submitted && f.business_profile.errors" class="invalid-feedback warning">
+                          <div *ngIf="f.business_profile.errors.minlength ">Company Business Profile must be at least 20
+                            characters long</div>
+                        </div>
+      
+                      </div>
+                      <div class="form-group ">
+                        <div class="paddingL50">
+                          <label for="inputError1" class="control-label pmd-input-group-label noPadding">Talent Pitch</label>
+      
+                          <textarea rows="5" cols="50" formControlName="talent_pitch" type="text"
+                            placeholder="e.g. As a fast growing company, talent joining Jobtiviti will play a big role in reshaping the hiring market in Malaysia. We put emphasis on ideas over seniority so you will thrive well regardless of your age. There is no boring day in a life of Jobtiviti team member – everyday is a chance to learn something new. Join us now!" class="form-control "
+                            id="exampleInputAmount"></textarea>
+                        </div>
+                        <div *ngIf="submitted && f.talent_pitch.errors" class="invalid-feedback warning">
+                          <div *ngIf="f.talent_pitch.errors.required">Talent Pitch is required</div>
+                        </div>
+                        <div *ngIf="submitted && f.talent_pitch.errors" class="invalid-feedback warning">
+                          <div *ngIf="f.talent_pitch.errors.minlength ">Talent Pitch must be at least 20
+                            characters long</div>
+                        </div>
+                     </div>
+                     <div class="form-group ">
+                      <div class="paddingL50">
+                        <label for="inputError1" class="control-label pmd-input-group-label noPadding">Company Website</label>
+    
+                        <input type="text"  formControlName="website" 
+                          placeholder="Company Website" class="form-control "
+                          id="exampleInputAmount">
+                      </div>
+                   </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="paddingL50">
+                        <label for="inputError1" class="control-label pmd-input-group-label noPadding">Upload photos to give job seekers an inside look of your company</label>
+                        <div>
+                            <div  class="row flexRow">
+                                <div  class="col-md-4 text-center flexCol borderDotted" *ngFor="let data of mediaArray">
+                                    <img src="{{data.media_url}}" class="fixWidth" >
+                                    <span class="deleteIcon" (click)="deleteMedia(data.id)"><i class="material-icons">close</i></span>
+                                </div>
+                              <div class="col-md-4 col-sm-6 addSection borderDotted flexCol">
+                                    <input type="file"  accept="image/*"   (change)="uploadMedia($event)" placeholder="Upload Media" id="upload-media">
+                                    <label for="upload-media">
+                                      <a style="cursor:pointer;" class="text-primary">
+                                        <span>
+                                          <i class="material-icons pmd-md">add</i> <br>
+                                          Add More Images
+                                        </span>
+                                      </a>
+                                    </label>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
+                <br>
+                <a href="javascript:void(0);" type="button" (click)="updateCompanyProfile()"
+                  class="btn pmd-ripple-effect btn-primary btn-login paddingTB10LR14">Save</a>
+                  <h3 *ngIf = "messageSeen" ion-text color="danger" class="text-success"> {{message}} Click here to go <a class="back-link" (click)="moveDashboard()">Back to Dashboard</a>  </h3>
+              </div>
+            </form>
+            </div>
+          </div>
+
+          
+
+      </div>
+  </div>
+</div>

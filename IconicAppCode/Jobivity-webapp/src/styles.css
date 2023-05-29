@@ -1,0 +1,298 @@
+/* You can add global styles to this file, and also import other style files */
+
+.loginlogo img{
+  height:60px !important;
+}
+/*a.btn-primary, a.dropdown-toggle.btn-primary {
+  color:#fff !important;
+}*/
+body {
+  scroll-behavior: smooth;
+}
+.noPadding {
+  padding: 0;
+}
+.noMargin {
+  margin: 0;
+}
+.paddingT0 {
+  padding-top: 0; 
+}
+.noBorder {
+  border: none;
+}
+.margin0 {
+  margin: 0;
+}
+.paddingTB15 {
+  padding: 15px 0;
+}
+.marginB10 {
+  margin-bottom: 10px;
+}
+.paddingQA {
+  padding: 7px 12px;
+  font-size:0.8em;
+}
+.paddingL10 {
+  padding-left: 10px;
+}
+.padding15 {
+  padding: 15px;
+}
+.marginT20 {
+  margin-top: 20px;
+}
+.marginB6 {
+  margin-bottom: 6px;
+}
+.marginB10 {
+  margin-bottom: 10px;
+}
+.marginB20 {
+  margin-bottom: 20px;
+}
+.MB20 {
+  margin-bottom: 20px !important;
+}
+.light {
+  color: #000;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+  .light:hover {
+    background-color: #e4e4e4;
+  }
+a.logout {
+  color: #fff!important;
+}
+  a.logout .faceIcon {
+    vertical-align:sub;
+  }
+.notification .dropdown-menu {
+  width:auto!important;
+  min-width:50px;
+}
+.selected {
+  color: #fff;
+  background-color: #3f8f04;
+  border: 4px solid #abe5c5;
+  cursor: pointer;
+}
+
+  .selected:hover {
+    background-color: #3f8f04;
+  }
+
+  .bgTableHead {
+    background: #c1eadc;
+}
+
+.PrimaryButton {
+  background-color: #f27e9c!important;
+  color: #fff;
+  border: 1px solid #f27e9c !important;
+}
+
+
+
+  .PrimaryButton:hover, .PrimaryButton:focus {
+    background-color: #fd5580 !important;
+    color:white;
+    border: 1px solid #fd5580 !important;
+  }
+.secondaryOutline {
+  border-color: #203479 !important;
+  color: #203479 !important;
+  border: 1px solid #203479;
+}
+  .secondaryOutline:hover .secondaryOutline:focus {
+    background-color: #203479 !important;
+    color: #fff !important;
+    border: none;
+  } 
+
+  .grayIcon {
+    background-color: transparent!important;
+    /* color: gray; */
+    color: #f27e9c !important;
+    border: none !important;
+    display: inline !important;
+    padding: 4px;
+  
+  }
+  
+    .grayIcon:hover, .grayIcon:focus {
+      background-color: transparent !important;
+      border: none !important;
+      color:#fd5580 !important;
+
+    }
+
+    
+    .grayColor {
+      background-color: transparent!important;
+      /* color: gray; */
+      color: #4d575d !important;
+      border: none !important;
+      margin: 4px;
+    }
+  
+    .grayColor:hover, .grayColor:focus {
+      background-color: transparent !important;
+      border: none !important;
+      color:#141414 !important;
+  
+    }
+
+    .displayTable {
+      display: table;
+    }
+    .displayTable a {
+      display: table-cell;
+    }
+
+.nav-tabs li.active a {
+  background: #f2809c !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+.telentProfileDetailInfo .nav-tabs li.active a {
+  background: #273677 !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+.tableRating thead tr th,
+.tableRating tbody tr th,
+.tableRating tbody tr td {
+    border-bottom: 1px solid #cacaca !important;
+
+}
+
+.bgTableHead th {
+    color: #000 !important;
+    text-align: center !important;
+}
+.marginTB50 {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.marginTB20 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.text-gray {
+  color: rgb(161, 161, 161);
+}
+
+.graphHeading {
+  line-height: 1.5;
+  font-size: 1.2em;
+  padding: 0 15px;
+}
+.labelLeft {
+  margin-top: -55px;
+  margin-left: -15px;
+  width: 50%;
+  padding-bottom: 00px;
+}
+.labelRight {
+  margin-top: -55px;
+  margin-right: -15px;
+  width: 50%;
+  padding-bottom: 20px;
+}
+ 
+.questionImage {
+  width: 48%;
+  display: inline-block;
+  margin: 1%;
+}
+
+  .questionImage img {
+    width: 100%;
+    height: 200px;
+  }
+
+
+.ui-select-choices-row.active > a {
+  background-color: #eaeaea !important;
+}
+.btn-default {
+  background-color: #e4e4e4 !important;
+  font-size: 0.8em;
+}
+  .btn-default .close {
+    color: #000 !important;
+    opacity: 1;
+    line-height: 0.9;
+    padding-left: 5px;
+  }
+.pmd-textfield-focused {
+  background-color: #ffffff !important;
+}
+.pmd-multipleSelect {
+  border: 1px solid #e4e4e4;
+}
+.nav-tabs li.active a {
+  background: #fff;
+  color: #4285f4;
+}
+
+.table-inverse a {
+  color: #fff !important;
+}
+
+.table-active {
+  background: #cccccc !important;
+  color: #000 !important;
+}
+.companyName {
+  text-transform: capitalize;
+}
+.modal-dialog {
+  z-index: 1!important;
+}
+.companyName:hover {
+  color: #4285f4;
+}
+hr {
+  min-height: 1px;
+}
+
+.smallBtn{
+  padding: 12px !important;
+}
+/* .mat-paginator-page-size, .mat-paginator-navigation-previous, .mat-paginator-navigation-next{
+  display: none !important;
+} */
+.companyListTable>thead>tr>th {
+  text-align: center !important;
+  padding: 10px !important;
+}
+.companyListTable>thead>tr>th .mat-sort-header-container{
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.ngx-pagination .current {
+  background: #f27e9d !important;
+}
+.theme-blue .bs-datepicker-head {
+  background-color: #131b3b !important;
+}
+.bs-datepicker-body table td {
+  color: #131b3b !important;
+ 
+}
+.theme-blue .bs-datepicker-body table td span.selected, .theme-blue .bs-datepicker-body table td.selected span, .theme-blue .bs-datepicker-body table td span[class*="select-"]:after, .theme-blue .bs-datepicker-body table td[class*="select-"] span:after {
+  background-color: #131b3b !important;
+}
+  @media only screen and (max-width: 400px) {
+    .btn {
+    font-size: 12px;
+  }
+}

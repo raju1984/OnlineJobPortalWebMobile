@@ -1,0 +1,83 @@
+<ngx-spinner></ngx-spinner>
+<app-nav></app-nav>
+<!--<app-sidenav id="basicSidebar" class="pmd-sidebar  sidebar-default pmd-sidebar-slide-push pm d-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons" role="navigation"></app-sidenav>-->
+<link href="/assets/themes/css/propeller-admin.css" rel="stylesheet" />
+<!--content area start-->
+<div id="content" class="pmd-content inner-page marginT20">
+<!--tab start-->
+  <div *ngIf="loadProgress" class="container-fluid full-width-container inbox marginT20">
+    <div [hidden]="IsFirstQuesitionShow">
+      <div class="row marginB20">
+        <div class="col-md-12" *ngFor="let quest of questionlist;index as ii" [hidden]="quest.isVisible">
+          <div class="col-md-8 col-sm-offset-2">
+            <div class="pmd-card pmd-card-default pmd-z-depth">
+              <div class="pmd-card-title">
+                <h3 class="pmd-card-title-text">{{quest.questions}}</h3>
+                <small class="pmd-card-subtitle-text">({{ii+1}} of {{questionlist.length}})</small>
+              </div>
+              <div class="pmd-card-body">
+                <div *ngIf="quest.question_options.length>0 && quest.type==1 && quest.slug=='q5'">
+                  <div *ngFor="let questopt of quest.question_options" (click)="singleSelect(questopt,quest)"
+                       [className]="questopt.isSelected==true ? 'light marginB6 paddingQA selected questionImage' : 'light marginB6 paddingQA questionImage'">
+                    <img src="{{ questopt.question_options | assetCaptrle }}" />
+                  </div>
+                </div>
+                <div *ngIf="quest.question_options.length>0 && quest.type==1 && quest.slug!='q5'">
+                  <div *ngFor="let questopt of quest.question_options" (click)="singleSelect(questopt,quest)"
+                       [className]="questopt.isSelected==true ? 'light marginB6 paddingQA selected' : 'light marginB6 paddingQA'">
+                    {{questopt.question_options}}
+                  </div>
+                </div>
+                <div *ngIf="quest.question_options.length>0 && quest.type==2">
+                  <h2 class="marginB6"><small class="text-muted">(You can select multiple answer)</small></h2>
+                  <div *ngFor="let questopt of quest.question_options" (click)="multiSelect(questopt,quest)"
+                       [className]="questopt.isSelected==true ? 'light marginB6 paddingQA selected' : 'light marginB6 paddingQA'">
+                    {{questopt.question_options}}
+                  </div>
+                </div>
+              </div>
+              <div class="pmd-card-actions text-right">
+                <button class="btn pmd-btn-outline pmd-ripple-effect btn-primary secondaryOutline" style="float:left" (click)="Clickcancel()"> Cancel  </button>
+
+                <button *ngIf="questionlist.length !=ii+1" (click)="nextclick(ii)" class="btn pmd-ripple-effect btn-primary PrimaryButton">
+                  <span class="text-capitalize">
+                    Next
+                  </span>
+                </button>
+                <button *ngIf="questionlist.length ==ii+1" (click)="SaveData()" class="btn pmd-ripple-effect btn-primary PrimaryButton">
+                  <span class="text-capitalize">
+                    Save
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- section content end -->
+  </div>
+</div>
+
+<script src="/assets/themes/js/circles.min.js"></script>
+<script type="text/javascript">
+  var colors = [
+    ['#dfe3e7', '#f79332'], ['#dfe3e7', '#f79332'], ['#dfe3e7', '#f79332'], ['#dfe3e7', '#2ab7ee'], ['#dfe3e7', '#00719d']
+  ], circles = [];
+
+  for (var i = 1; i <= 10; i++) {
+
+    var child = document.getElementById('circles-' + i),
+      percentage = 10 + (i * 8);
+
+    circles.push(Circles.create({
+      id: child.id,
+      value: percentage,
+      radius: 50,
+      width: 7,
+      colors: colors[i - 1],
+      textClass: 'circles-text',
+      styleText: true
+    }));
+  }
+</script>
+<!-- content area end -->

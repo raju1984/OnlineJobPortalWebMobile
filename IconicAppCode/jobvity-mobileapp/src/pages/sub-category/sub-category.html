@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar color="danger">
+    <ion-title>Tell your employers more...</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content text-center text-wrap class="card-background-page">
+  <ion-grid class="paddingR0">
+    <ion-list [hidden]="IsTextfield">
+      <ion-label ion-text padding-horizontal text-start color="primary">
+        {{SubcategoryQuest}} <span ion-text color="red">*</span>
+      </ion-label>
+      <ion-item>
+        <ion-input [(ngModel)]="Subcategory" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <button ion-button block (click)="UserContinue(1)" color="danger">Save and Continue</button>
+      </ion-item>
+    </ion-list>
+    <ion-list [hidden]="IsAutoComplete">
+      <ion-label ion-text padding-horizontal text-start color="primary">
+        {{SubcategoryQuest}} <span ion-text color="red">*</span>
+      </ion-label>
+      <ion-item class="noBorder AutoSearch">
+        <!--<ion-searchbar [(ngModel)]="SelectedValue" (ionInput)="getItems($event)"></ion-searchbar>-->
+        <div class="autoCompleteCustom">
+          <ion-card *ngFor="let value of listSelected">
+            <ion-card-content>
+              <span (click)="selectALL()">{{ value }}</span>
+              <ion-icon name="close" (click)="RemoveCourse(value)"></ion-icon>
+            </ion-card-content>
+          </ion-card>
+          <ion-searchbar #search [(ngModel)]="SelectedValue"
+                         (ionInput)="getItems($event)"
+                         (keyup.enter)="onKeyPressed($event)"></ion-searchbar>
+          <div *ngIf="showList" class="autocompleteSection">
+            <ion-item style="cursor:pointer" *ngFor="let item of items" (click)="itemSelected(item)">
+              {{ item }}
+            </ion-item>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <button ion-button block (click)="UserContinue(2)" color="danger">Save and Continue</button>
+      </ion-item>
+    </ion-list>
+    <ion-row [hidden]="Islist">
+      <!--<ion-col *ngFor="let catgory of categoryList" col-6 no-padding class="paddingR5" style="margin-bottom: 5px;">
+      <div class="category" [style.backgroundImage]="'url(' + catgory.imgURL + ')'"
+           (click)="selectedSubCategory(catgory)">-->
+      <ion-col *ngFor="let catgory of categoryList" col-6 no-padding class="paddingR5" style="margin-bottom: 5px;">
+        <div class="category" (click)="selectedSubCategory(catgory)">
+          <div class="categoryClass" text-center>
+            <span>{{ catgory.category_name }}</span>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

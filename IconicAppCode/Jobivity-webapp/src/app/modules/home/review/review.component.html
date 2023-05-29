@@ -1,0 +1,24 @@
+<ngx-spinner></ngx-spinner>
+<app-nav></app-nav>
+<title>Review Talent</title>
+
+<div class="pmd-content inner-page">
+
+  <div class="container-fluid">
+
+    <div class="row spaveTop padding15">
+      <div class="col-md-8 col-md-offset-2 col-xs-12">
+       <div *ngFor="let data of interviewData">
+        <h2>Q. {{data.ques}} </h2>
+       
+        <div>
+            <video width="100%" height="315" id='video-player' autoplay preload='metadata' controls controlsList="nodownload">
+                <source [src]="data.video_url+'?controls=0' | safe" type="video/mp4">
+              </video>
+          </div>
+        <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

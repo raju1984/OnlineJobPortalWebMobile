@@ -1,0 +1,91 @@
+
+<app-admin-navbar></app-admin-navbar>
+<app-admin-sidebar id="basicSidebar" class="pmd-sidebar  sidebar-default pmd-sidebar-slide-push pm d-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons" role="navigation"></app-admin-sidebar>
+<div id="content" class="pmd-content content-area dashboard">
+
+  <div class="container-fluid">
+    <div class="row" id="card-masonry">
+
+      <div class="col-md-6 col-md-offset-3 padding40">
+        <div class="pmd-card card-default pmd-z-depth">
+          <form [formGroup]="AnnouncementForm" >
+            <div class="pmd-card-body">
+              <span class="pull-right cursorClass"  (click)="backbutton()">&times;</span>
+            <div class="form-group">
+                <label for="inputError1" class="control-label">Poster Image</label>
+                <input type="file"  accept="image/png, image/jpeg"  (change)="uploadImage($event)" placeholder="Upload Image" id="upload-card">  
+                <div *ngIf="imageFlag" class="invalid-feedback warning">
+                  Poster Image is required
+                </div>  
+              </div>
+            
+
+              <div class="form-group">
+                <label for="inputError1" class="control-label ">Start Date</label>
+                
+                <div class="group-fields clearfix row">
+                  <div class="col-sm-12 col-xs-12">
+                        <input  type="text"
+                          placeholder="MM/DD/YYYY"
+                          class="form-control"
+                          placement="bottom"
+                          readonly
+                          formControlName="start_date"
+                          bsDatepicker [minDate]="minDate"
+                          [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', containerClass: 'theme-blue',showWeekNumbers: false }"
+                          class="form-control inputH"
+                          >
+                  </div>
+                </div>  
+                <div *ngIf="submitted && f.start_date.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.start_date.errors.required">Start Date is required</div>
+                </div>              
+              </div>
+
+              <div class="form-group">
+                <label for="inputError1" class="control-label">End Date</label>
+                
+                <div class="group-fields clearfix row">
+                  <div class="col-sm-12 col-xs-12">
+                    
+                        <input  type="text"
+                          placeholder="MM/DD/YYYY"
+                          class="form-control"
+                          placement="bottom"
+                          readonly
+                          formControlName="end_date"
+                          bsDatepicker 
+                          [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', containerClass: 'theme-blue',showWeekNumbers: false }"
+                          class="form-control inputH"
+                          >
+                  </div>
+                </div>  
+                <div *ngIf="submitted && f.end_date.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.end_date.errors.required">End Date is required</div>
+                </div>       
+                <div class="invalid-feedback warning"
+                          *ngIf="AnnouncementForm.get('end_date').touched && AnnouncementForm.errors?.dateInvalid == true" style="color: red">
+                         End Date should be equals or greater than Start Date
+                          </div>         
+              </div>
+
+              <div class="form-group">
+                <label for="inputError1" class="control-label">URL</label>
+               
+                  <input name="url" formControlName="url" 
+                    placeholder ="Enter Url"  class="form-control inputH">
+              </div>
+            </div>
+            <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
+              <button href="javascript:void(0);" type="submit" (click)="addAnnouncement()"
+                class="btn pmd-ripple-effect btn-primary btn-block btn-login PrimaryButton">
+                Submit
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,112 @@
+.paddingL50 {
+  padding-left: 50px;
+}
+.back-link{
+  text-decoration: underline;
+  color: green;
+  cursor: pointer;
+}
+#upload-card {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+#upload-media{
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+.logincard {
+  max-width: 40%;
+  max-height: 100vh;
+}
+.stry{
+  margin-left: 65px;
+}
+
+.padding40 {
+  padding: 20px 40px;
+}
+#upload-image {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+.borderOn {
+  border: 1px dotted #ccc;
+  padding: 10px;
+}
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+.flex1 {
+  flex: 1;
+}
+.cursorClass{
+  cursor:pointer;
+}
+.pmd-input-group-label {
+   padding-left: 0px !important; 
+}
+
+.companyDetail h3 small{
+  font-size: 85%;
+}
+.pt-3 {
+  padding-top: 1.3em;
+}
+
+.flex1.borderOn {
+  margin-right:10px;
+ text-align: center;
+ }
+ .fixWidth{
+  width: 100%;
+ }
+ .addSection {
+  text-align: center;
+  background-color: #fafafa;
+  color: #bababa;
+ }
+ .addSection a {
+  color: #bababa!important;
+ }
+ .borderDotted{
+  border: 1px dotted #d3d3d3;
+ }
+ .flexRow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+ }
+ .flexCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px !important;
+  width: 30%;
+  margin: 1%;
+ }
+ .deleteIcon {
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  border-radius: 40px;
+  background: #f27e9c;
+  color: #fff;
+  cursor: pointer;
+ }
+ .deleteIcon i {
+  font-size: 16px;
+  vertical-align: middle;
+ }
+ .btn-login{
+   padding: 11px !important; 
+  
+}

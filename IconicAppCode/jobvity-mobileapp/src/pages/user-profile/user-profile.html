@@ -1,0 +1,135 @@
+<ion-header>
+  <ion-navbar color="danger">
+    <ion-title>User Details</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content text-wrap>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid>
+    <ion-list *ngIf="userdetails != undefined">
+      <ion-item class="UserName noBorder" no-padding>
+        <ion-avatar item-start>
+          <img [src]="userdetails.photo" onerror="this.onerror=null;this.src='../assets/imgs/user.jpg'" />
+        </ion-avatar>
+        <ion-row>
+          <ion-col col-4 text-center class="paddingB0">
+            <b>{{ userdetails.no_of_jobtivity_posted }}</b><br />
+            Jobtivities
+          </ion-col>
+          <ion-col col-4 text-center class="paddingB0">
+            <b> {{ userdetails.no_of_followings }} </b> <br />
+            Following
+          </ion-col>
+          <ion-col col-4 text-center class="paddingB0">
+            <b>{{ userdetails.no_of_followers }}</b> <br />
+            Followers
+          </ion-col>
+          <ion-col col-12 *ngIf="IscurrenctUser == false">
+            <button block no-margin color="yellow" *ngIf="
+                userdetails.isFollowing == undefined ||
+                userdetails.isFollowing == 0
+              " (click)="Follow()" ion-button small>
+              <span class="light"> + Follow </span>
+            </button>
+            <button block no-margin color="yellow" *ngIf="userdetails.isFollowing == 1" (click)="UnFollow()" ion-button
+              small>
+              <span class="light">Following</span>
+            </button>
+            <!--<button *ngIf="userdetails.IsFollower==undefined" ion-button outline small>Follower</button>-->
+          </ion-col>
+        </ion-row>
+      </ion-item>
+      <ion-item class="padding5">
+        <p no-margin ion-text color="black">
+          <b>{{ userdetails.name}} </b>
+        </p>
+        <p class="paddingB10" ion-text color="black"><span class="smallFont">
+          Graduated in {{ userdetails.graduation_year }} at {{ userdetails.universityData[0].university_name }}. ({{courcesname}} ).
+        </span></p>
+        <p ion-text color="black">{{userdetails.aspiration_message}}</p>
+      </ion-item>
+    </ion-list>
+    <ion-list class="notification" no-margin *ngIf="userJobtivitiesData != undefined && userJobtivitiesData.length> 0">
+      <ion-item class="paddingT8">
+        <h3>Latest Jobtiviti</h3>
+      </ion-item>
+    </ion-list>
+    <ion-row class="background" *ngFor="let jobtivity of userJobtivitiesData">
+      <ion-col>
+        <ion-list class="profile">
+          <ion-item style="cursor:pointer" (click)="UserProfileClick(jobtivity)" no-padding>
+            <ion-avatar item-start>
+              <img [src]="
+                  jobtivity?.user?.photo
+                    ? jobtivity?.user?.photo
+                    : '../assets/imgs/user.jpg'
+                " />
+            </ion-avatar>
+            <p ion-text color="dark">
+              <b>{{ jobtivity?.user?.name }}</b>
+            </p>
+            <small>
+              {{ jobtivity.created_at | date: "MMM d, y, h:mm a" }} ·
+              <button ion-button small round ion-text class="tagButton {{jobtivity?.categoryTag?.tag}}">
+                {{jobtivity?.categoryTag?.tag}}
+              </button>
+            </small>
+          </ion-item>
+          <ion-item class="noBorder noChildPadding post" no-padding>
+            <h4 (click)="viewComment(jobtivity)" padding-horizontal ion-text class="heading">{{ jobtivity.description }}
+            </h4>
+            <p padding-horizontal ion-text class="descriptionText" [hidden]="jobtivity.WhatIHave"
+              style="cursor:pointer">
+              <small color="danger" (click)="whatIhavelearnt(jobtivity)">See Description!</small>
+            </p>
+            <p (click)="viewComment(jobtivity)" padding-horizontal ion-text [hidden]="!jobtivity.WhatIHave"
+              class="description fieldSecond">
+              {{ jobtivity.learning_experience }}
+            </p>
+            <span (click)="viewComment(jobtivity)" class="imageSize">
+              <img *ngIf="jobtivity.photo != null" [src]="jobtivity.photo_url"
+                onerror="this.onerror=null;this.src='../assets/imgs/post.jpg'" />
+            </span>
+            <p ion-text padding *ngIf="jobtivity.num_of_Wow>0" class="ionWow" (click)="WowList(jobtivity)"><b>{{
+              jobtivity.num_of_Wow }}</b>
+              Wow &nbsp;</p>
+            <p ion-text padding *ngIf="jobtivity.num_of_comments>0" class="ionComment" (click)="viewComment(jobtivity)">{{
+              jobtivity.num_of_comments }} Comments</p>
+          </ion-item>
+          <ion-item class="profileFooter" background-color="lightGray">
+            <ion-grid no-padding>
+              <ion-row>
+                <ion-col col-6 no-padding>
+                  <button (click)="Wow(jobtivity)"
+                    *ngIf="jobtivity.wowInterest == undefined || jobtivity.wowInterest == 0" ion-button small block
+                    clear color="gray">
+                    <ion-icon name="ios-thumbs-up-outline"> </ion-icon> &nbsp; Wow
+                  </button>
+                  <button (click)="RemoveWow(jobtivity)" *ngIf="jobtivity.wowInterest == 1" ion-button small block clear
+                    color="danger">
+                    <small>
+                      <ion-icon name="thumbs-up" color="light" class="wow"> </ion-icon>
+                    </small> &nbsp; Wow
+                  </button>
+                </ion-col>
+                <ion-col col-6 no-padding>
+                  <button ion-button small block clear color="gray" (click)="viewComment(jobtivity)">
+                    <ion-icon name="ios-text-outline"> </ion-icon> &nbsp; Comment
+                  </button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+
+          <ion-item hidden="hidden">
+            <button ion-button clear (click)="viewComment()">View all comment</button>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

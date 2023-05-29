@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-navbar color="danger">
+    <ion-title>Social Feeds</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding text-wrap>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list *ngFor="let jobtivity of jobtivityList" class="profile">
+    <ion-item style="cursor:pointer" (click)="UserProfileClick(jobtivity)" no-padding>
+      <ion-avatar item-start>
+        <img [src]="
+            jobtivity?.user?.photo
+              ? jobtivity?.user?.photo
+              : '../assets/imgs/user.jpg'
+          " />
+      </ion-avatar>
+      <p ion-text color="dark">
+        <b>{{ jobtivity?.user?.name }}</b>
+      </p>
+      <small>
+        {{ jobtivity.created_at | date: "MMM d, y, h:mm a" }} ·
+        <button ion-button small round ion-text class="tagButton {{jobtivity?.categoryTag?.tag}}">
+          {{jobtivity?.categoryTag?.tag}}
+        </button>
+      </small>
+    </ion-item>
+    <ion-item class="noBorder noChildPadding post" no-padding>
+      <h4 (click)="viewComment(jobtivity)" padding-horizontal ion-text class="heading">{{ jobtivity.description }}</h4>
+      <p padding-horizontal ion-text class="descriptionText" [hidden]="jobtivity.WhatIHave" style="cursor:pointer">
+        <small color="danger" (click)="whatIhavelearnt(jobtivity)">See Description!</small>
+      </p>
+      <p (click)="viewComment(jobtivity)" ion-text [hidden]="!jobtivity.WhatIHave" class="description fieldSecond">
+        {{ jobtivity.learning_experience }}
+      </p>
+      <span (click)="viewComment(jobtivity)" class="imageSize">
+        <img *ngIf="jobtivity.photo != null" [src]="jobtivity.photo_url"
+          onerror="this.onerror=null;this.src='../assets/imgs/post.jpg'" />
+      </span>
+      <p ion-text padding *ngIf="jobtivity.num_of_Wow>0" class="ionWow" (click)="WowList(jobtivity)"><b>{{
+        jobtivity.num_of_Wow }}</b>
+        Wow &nbsp;</p>
+      <p ion-text padding *ngIf="jobtivity.num_of_comments>0" class="ionComment" (click)="viewComment(jobtivity)"><b>{{
+        jobtivity.num_of_comments }}</b> Comments</p>
+    </ion-item>
+    <ion-item class="profileFooter" background-color="lightGray">
+      <ion-grid no-padding>
+        <ion-row>
+          <ion-col col-6 no-padding>
+            <button (click)="Wow(jobtivity)" *ngIf="jobtivity.wowInterest == undefined || jobtivity.wowInterest == 0"
+              ion-button small block clear color="gray">
+              <ion-icon name="ios-thumbs-up-outline"> </ion-icon> &nbsp; Wow
+            </button>
+            <button (click)="RemoveWow(jobtivity)" *ngIf="jobtivity.wowInterest == 1" ion-button small block clear
+              color="danger">
+              <small>
+                <ion-icon name="thumbs-up" color="light" class="wow"> </ion-icon>
+              </small> &nbsp; Wow
+            </button>
+          </ion-col>
+          <ion-col col-6 no-padding>
+            <button ion-button small block clear color="gray" (click)="viewComment(jobtivity)">
+              <ion-icon name="ios-text-outline"> </ion-icon> &nbsp; Comment
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <ion-item hidden="hidden">
+      <button ion-button clear (click)="viewComment()">View all comment</button>
+    </ion-item>
+  </ion-list>
+</ion-content>

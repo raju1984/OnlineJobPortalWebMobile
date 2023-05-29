@@ -1,0 +1,123 @@
+.bg5 {
+    background-size: 100% 100%;
+    overflow: auto;
+  }
+
+  .loginlogo {
+    padding: 0;
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .loginlogo img {
+    width: 200px;
+    height: auto !important;
+  }
+
+  .logincard {
+    max-width: 65%;
+    max-height: 100vh;
+  }
+
+  .noPadding {
+    padding: 0;
+  }
+
+  .padding40 {
+    padding: 40px;
+  }
+
+  .pLR10 {
+    padding: 0 10px;
+  }
+
+  .paddingT20 {
+    padding-top: 20px;
+  }
+
+  h6 .LS8 {
+    letter-spacing: 8px;
+  }
+
+  .TColor {
+    color: #c5c1c1;
+  }
+
+  a .TColor:hover {
+    color: #23527c !important;
+  }
+
+  .btn-login {
+    background-color: #f27e9c;
+    padding: 20px;
+    color:white;
+  }
+  .btn-signup{
+    background-color: #203479;
+    padding: 15px;
+    margin-top: 20px;
+  }
+
+  .btn-login:hover {
+    background-color: #fd5580;
+    color:white;
+  }
+
+  .inputIcon {
+    position: relative;
+    left: 42px;
+    z-index: 99;
+    background: transparent;
+    border: none;
+  }
+
+  .inputH {
+    height: 3em;
+    padding-left: 40px;
+  }
+
+  .inputH:focus {
+    border-color: #f27e9c;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(242, 126, 156, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(242, 126, 156, 0.6);
+  }
+
+  .pmd-card-body {
+    padding-left: 0;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: -25px;
+  }
+
+  .pmd-input-group-label {
+    padding-left: 50px;
+  }
+
+  .warning {
+    padding-left: 50px;
+    color: red;
+  }
+  .btn-CreateAccount {
+    border-color: #203479;
+    color: #203479;
+    padding: 20px;
+  }
+  .btn-CreateAccount:hover , .btn-CreateAccount:focus {
+    background-color: #203479;
+    border-color: #203479;
+    color: #fff;
+
+  }
+  .bgImage {
+    background-size: cover;
+    background-position: center center;
+  }
+  
+  a {
+    color: #f27e9c;
+  }
+  a:hover {
+    color: #fd5580;
+  }

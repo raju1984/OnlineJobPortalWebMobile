@@ -1,0 +1,125 @@
+<ion-header>
+  <ion-navbar color="danger">
+    <ion-title>Edit Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list class="profileImage">
+    <div (click)="presentActionSheet()">
+      <ion-avatar item-start>
+        <img *ngIf="lastImage !=null" [src]="lastImage" onerror="this.onerror=null;this.src='../assets/imgs/user.jpg'"
+          alt="">
+      </ion-avatar>
+      <div class="imageUpload">
+        <img src="../assets/imgs/upload.png" alt="Change">
+      </div>
+    </div>
+  </ion-list>
+
+  <ion-list *ngIf="userdetails != undefined">
+    <ion-item>
+      <ion-label stacked>Full Name</ion-label>
+      <ion-input type="text" [(ngModel)]="userdetails.name"></ion-input>
+    </ion-item>
+    <p ion-text color="danger" class="warning" *ngIf="Uvalidate.name==true">
+      First Name is required!
+    </p>
+    <ion-item>
+      <ion-label stacked>Email</ion-label>
+      <ion-input type="email" [(ngModel)]="userdetails.email" disabled="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Graduation Year</ion-label>
+      <ion-datetime [(ngModel)]="graduationYear" displayFormat="YYYY" [min]="minGradutionYear" [max]="maxGradutionYear">
+      </ion-datetime>
+    </ion-item>
+    <p ion-text color="danger" class="warning" *ngIf="Uvalidate.year">
+      Graduation Year is required!
+    </p>
+    <ion-item class="labelAutocomplete">
+      <ion-label stacked>University Name</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item class="AutoSearch">
+      <!--<ion-label stacked>University Name</ion-label>-->
+      <!--<select-searchable item-content [(ngModel)]="UniversityName" [items]="UniversityNameList" itemValueField="id"
+        itemTextField="university_name" [canSearch]="true">
+      </select-searchable>-->
+      <div class="autoCompleteCustom">
+        <ion-searchbar #searchUniversity placeholder="" [(ngModel)]="university_name"
+          (ionInput)="getItemsUniversity($event)">
+        </ion-searchbar>
+        <div *ngIf="showList" class="autocompleteSection">
+          <ion-item style="cursor:pointer" *ngFor="let item of itemsUniversity" (click)="itemSelectedUniversity(item)">
+            {{ item }}
+          </ion-item>
+        </div>
+      </div>
+    </ion-item>
+    <p ion-text color="danger" class="warning" *ngIf="Uvalidate.university">
+      University Name is required!
+    </p>
+    <!--<ion-item>
+      <ion-label stacked>Choose one or more areas of study</ion-label>
+      <select-searchable class="courseHide" item-content [(ngModel)]="CourseName" [items]="CourseNameList"
+                         itemValueField="id" itemTextField="course_name" [canSearch]="true"
+                         [isMultiple]="true" [focusSearchbar]="true"
+                         [canClear]="true" (onSelect)="initFocus($event)">
+      </select-searchable>
+    </ion-item>-->
+    <ion-item class="labelAutocomplete">
+      <ion-label stacked>Choose one or more areas of study</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item class="AutoSearch">
+      <!--<ion-label stacked>Choose one or more areas of study</ion-label>
+      <ionic-selectable item-content class="courseHide"
+                        [(ngModel)]="CourseName"
+                        [items]="CourseNameList"
+                        itemValueField="id"
+                        [isMultiple]="true"
+                        itemTextField="course_name"
+                        [canSearch]="true"
+                        [focusSearchbar]="true"
+                        (onSelect)="onIonicselect($event)"
+                        (onOpen)="onIonicselect($event)"
+                        (onChange)="CNameChange($event)">
+      </ionic-selectable>-->
+      <!--<ion-label stacked>Choose one or more areas of study</ion-label>-->
+      <div class="autoCompleteCustom">
+        <ion-card *ngFor="let value of listSelected">
+          <ion-card-content>
+            <span (click)="selectALL()">{{ value }}</span>
+            <ion-icon name="close" (click)="RemoveCourses(value)"></ion-icon>
+          </ion-card-content>
+        </ion-card>
+        <ion-searchbar #search placeholder="" [(ngModel)]="SelectedValue" (ionInput)="getItems($event)"></ion-searchbar>
+        <div *ngIf="showListCourse" class="autocompleteSection">
+          <ion-item style="cursor:pointer" *ngFor="let item of itemsCourse" (click)="itemSelected(item)">
+            {{ item }}
+          </ion-item>
+        </div>
+      </div>
+    </ion-item>
+    <p ion-text color="danger" class="warning" *ngIf="Uvalidate.course">
+      Course Name are required!
+    </p>
+    <!--<ion-card *ngFor="let value of CourseSelected">
+      <ion-card-content>
+        {{ value.course_name }}
+        <ion-icon name="close" (click)="RemoveCourse(value)"></ion-icon>
+      </ion-card-content>
+    </ion-card>-->
+    <ion-item>
+      <ion-label stacked text-wrap>Business analyst with strong communication skills</ion-label>
+      <ion-textarea placeholder="I aspire to be..." rows="2" [(ngModel)]="userdetails.aspiration_message">
+      </ion-textarea>
+    </ion-item>
+
+    <ion-item class="no-border paddingR0">
+      <button ion-button color="danger" (click)="UserUpdate()" block> Save </button>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

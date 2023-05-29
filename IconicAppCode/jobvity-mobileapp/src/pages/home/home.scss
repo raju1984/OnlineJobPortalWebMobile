@@ -1,0 +1,50 @@
+page-home {
+  ion-content {
+
+    .diag {
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      top: 12%;
+      height: 30%;
+    }
+
+    ion-icon {
+      margin-top: 40%;
+      font-size: 7em;
+    }
+
+    h2 {
+      margin-top: 35% !important;
+      font-weight: bold;
+      font-size: 1.3em;
+    }
+
+    p {
+      width: 80%;
+      display: block;
+      margin: 0 auto;
+      font-size: 0.7em;
+    }
+
+    .swiper-pagination-bullet-active {
+      background: color($colors, danger);
+    }
+
+    .swiper-pagination {
+      bottom: 12% !important;
+    }
+
+    .buttonStart {
+      position: absolute;
+      bottom: 0;
+      margin: 0;
+      box-shadow: none;
+      background: #ffe7ec;
+      color: color($colors, danger);
+      z-index: 5;
+      padding: 20px;
+      font-size: 1.1em;
+    }
+  }
+}

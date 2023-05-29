@@ -1,0 +1,629 @@
+<ngx-spinner></ngx-spinner>
+<app-admin-navbar></app-admin-navbar>
+<app-admin-sidebar id="basicSidebar"
+                   class="pmd-sidebar  sidebar-default pmd-sidebar-slide-push pm d-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons"
+                   role="navigation"></app-admin-sidebar>
+<!--content area start-->
+
+<div id="content" class="pmd-content content-area dashboard">
+  <div class="container-fluid">
+    <div class="row" id="card-masonry">
+      <!-- Today's Site Activity -->
+      <div class="col-xs-12">
+        <div class="component-box">
+          <!--Fixed tab example -->
+          <div class="pmd-card pmd-z-depth">
+            <div class="pmd-tabs pmd-tabs-bg">
+              <div class="pmd-tab-active-bar"></div>
+              <ul role="tablist" class="nav nav-tabs nav-justified">
+                <li [className]="activeShow=='' ? 'active' : ''" role="presentation">
+                  <a data-toggle="tab"
+                     role="tab" aria-controls="home" href="#pending-company" (click)="getcompanylist()">Pending</a>
+                </li>
+                <li [className]="activeShow=='Active' ? 'active' : ''" role="presentation">
+                  <a data-toggle="tab"
+                     role="tab" aria-controls="profile" href="#active-company" (click)="onactivelick()">Active</a>
+                </li>
+                <li  [className]="activeShow=='Reject' ? 'active' : ''"  role="presentation">
+                  <a data-toggle="tab"
+                     role="tab" aria-controls="profile" href="#rejected-company" (click)="onRejectClick()">Rejected</a>
+                </li>
+                <li  [className]=""  role="presentation">
+                    <a data-toggle="tab"
+                       role="tab" aria-controls="profile" href="#invitation" (click)="onInvitationClick()">Invitations</a>
+                </li>
+              </ul>
+            </div>
+            <div class="pmd-card-body">
+              <div class="tab-content">
+                <!-- Pending Company Tab -->
+                <div role="tabpanel" [className]="activeShow=='' ? 'tab-pane active' : 'tab-pane '"
+                     class="tab-pane active" id="pending-company">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="component-box">
+                        <div class="pmd-card pmd-z-depth-1 shadow-demo pmd-card-custom-view">
+                          <div class="pmd-table-card">
+                            <div class="row noMargin">
+                              <div class="col-xs-12">
+                                <div class="col-md-6 col-sm-8">
+                                  <div class="hideButton">
+                                    <button id="openModalButton1"  data-target="#comment-dialog"  data-toggle="modal" class="marginR2">
+                                        <i class="material-icons grayColor borderRound" >comment</i>
+                                      </button>
+                                  </div>
+                                </div>
+                                <div class="col-md-6 col-sm-8">
+                                  <button *ngIf="this.role == 1 || this.role == 5 || this.role == 7" (click)="downloadCSV()" type="button" class="btn pmd-ripple-effect btn-success btn-csv">
+                                    Export
+                                  </button>
+                                </div>
+                                <div class="col-sm-6 col-sm-offset-6 text-right">
+                                  <div class="dataTables_filter ">
+                                      <label>Search:
+                                          <input type="search" (keyup)="applyFilter($event.target.value)" >
+                                      </label>
+                                  </div>
+                                </div>
+                                <div class="table-responsive">
+                                  <!-- Mat Table to display panding company list -->
+                                  <table mat-table  [dataSource]="dataSource" matSort class="mat-elevation-z8 table-bordered companyListTable">
+
+                                      <ng-container matColumnDef="newid">
+                                        <th class="text-center" mat-header-cell *matHeaderCellDef mat-sort-header > ID </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.newid}} </td>
+                                      </ng-container>
+
+
+                                      <ng-container matColumnDef="company_name">
+                                        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Company</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.company_name }} </td>
+                                      </ng-container>
+
+
+                                      <ng-container matColumnDef="name">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Administrator </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <h5>
+                                                {{element.name}}
+                                                  <small *ngIf="element.email_verified == 0">
+                                                      <span tooltip tooltip-left>
+                                                          <i class="material-icons  md-dark pmd-md notVarefiedEmail icon-check">warning</i>
+                                                          <span class="tooltip-content">
+                                                              The email address of this user is not verified. <a class="veify-link" href="javascript:void(0);" (click)="sendVerifyMail(element.id)">(Resend verification email.)</a>
+                                                          </span>
+                                                      </span>
+                                                  </small>
+                                                  <small *ngIf="element.email_verified == 1">
+                                                      <i class="material-icons md-dark pmd-md verefiedEmail">check_circle</i>
+                                                  </small>
+                                                </h5>
+                                        </td>
+                                      </ng-container>
+
+                                      <ng-container matColumnDef="job_position">
+                                        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Job Position</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.job_position }} </td>
+                                      </ng-container>
+
+
+                                      <ng-container matColumnDef="contact">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.contact}} </td>
+                                      </ng-container>
+
+                                      <ng-container matColumnDef="referrer">
+                                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Referrer </th>
+                                          <td mat-cell *matCellDef="let element"> {{element.referrer}} </td>
+                                        </ng-container>
+
+                                      <ng-container matColumnDef="days">
+                                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Registered On </th>
+                                          <td mat-cell *matCellDef="let element"> {{element.days}} days ago  </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="action">
+                                            <th mat-header-cell *matHeaderCellDef >Action </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <p class="displayTable">
+                                                    <a href="javascript:void(0);" (click)="ondetailclick(element.id)" data-target="#edit-dialog"
+                                                      data-toggle="modal" class="marginR2">
+                                                      <i class="material-icons grayColor borderRound">edit</i>
+                                                    </a>
+                                                    <a href="javascript:void(0);" (click)="onclickcompany(element.id, element.company_name,'Pending')" class="marginR2 curPoi" >
+                                                        <i class="material-icons grayColor borderRound">info</i>
+                                                         </a>
+                                                    <a href="javascript:void(0);" data-target="#comment-dialog" (click)="getComment(element.id)" data-toggle="modal" class="marginR2">
+                                                      <i class="material-icons grayColor borderRound" >comment</i>
+                                                    </a>
+                                                    <a *ngIf="this.role == 1 || this.role == 7 " href="javascript:void(0);" (click)="onactionclick(element.id)" data-target="#Accept-dialog" data-toggle="modal"
+                                                      class="marginR2">
+                                                      <i class="material-icons grayColor borderRound">done</i>
+                                                    </a>
+                                                    <a *ngIf="this.role == 1 || this.role == 7" href="javascript:void(0);" (click)="onactionclick(element.id)" data-target="#reject-dialog" data-toggle="modal"
+                                                      class="">
+                                                      <i class="material-icons grayColor borderRound">close</i>
+                                                    </a>
+                                                  </p>  </td>
+                                          </ng-container>
+
+                                      <tr mat-header-row *matHeaderRowDef="displayedColumnss"></tr>
+                                      <tr mat-row *matRowDef="let row; columns: displayedColumnss;"></tr>
+                                    </table>
+                                    <mat-paginator></mat-paginator>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Active Company Tab -->
+                <div role="tabpanel" [className]="activeShow=='Active' ? 'tab-pane active' : 'tab-pane'"
+                     id="active-company">
+                  <div class="row noMargin">
+                    <div class="col-md-12">
+                      <div class="component-box">
+                       <!-- table card example -->
+                        <div class="pmd-card pmd-z-depth-1 shadow-demo pmd-card-custom-view">
+                          <div class="pmd-table-card">
+                            <div class="row noMargin">
+                              <div class="col-xs-12">
+                                  <div class="col-sm-6 col-sm-offset-6 text-right">
+                                      <button *ngIf="this.role == 1   || this.role == 5 || this.role == 7" (click)="downActiveCSV()" type="button" class="btn pmd-ripple-effect btn-success btn-csv">
+                                        Export
+                                      </button>
+                                </div>
+                                <div class="col-sm-6 col-sm-offset-6 text-right">
+                                    <div class="dataTables_filter">
+                                    <label>
+                                      Search:
+                                      <input type="search" [(ngModel)]="activesearch"
+                                           (input)="onActivesearch()"  class="" placeholder="" aria-controls="DataTables_Table_0">
+                                      </label>
+                                    </div>
+                                </div>
+                                <table cellspacing="0" cellpadding="0"
+                                       class="table pmd-table table-hover table-bordered MB20">
+                                  <!--[dtTrigger]="dtTrigger[1]"-->
+                                  <thead>
+                                      <tr>
+                                        <th>ID</th>
+                                        <th>Company</th>
+                                        <th>Approved On</th>
+                                        <th>Action </th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let comapany of activeCompanylist">
+                                      <td>{{comapany.newid}}</td>
+                                      <td class="companyName">
+                                        {{comapany.company_name}}
+                                      </td>
+                                      <td class="Date">{{comapany.verify_date}}</td>
+                                      <td class="Action">
+                                         <a href="javascript:void(0);" data-target="#comment-dialog" (click)="getComment(comapany.id)" data-toggle="modal" class="pull-right marginR2 curPoi">
+                                          <i class="material-icons grayColor borderRound" >comment</i>
+                                        </a>
+                                        <a href="javascript:void(0);" (click)="onclickcompany(comapany.id, comapany.company_name,'Active')"
+                                        class="pull-right marginR2 curPoi" > <i class="material-icons grayColor borderRound">info</i>
+                                      </a>
+                                    </td>
+
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Active Company tab -->
+                <!-- Start Rejected Company Tab -->
+                <div role="tabpanel" [className]="activeShow=='Reject' ? 'tab-pane active' : 'tab-pane '"
+                id="rejected-company">
+             <div class="row noMargin">
+               <div class="col-md-12">
+                 <div class="component-box">
+                  <!-- table card example -->
+                   <div class="pmd-card pmd-z-depth-1 shadow-demo pmd-card-custom-view">
+                     <div class="pmd-table-card">
+                       <div class="row noMargin">
+                         <div class="col-xs-12">
+                           <div class="col-sm-6 col-sm-offset-6 text-right">
+                               <div class="dataTables_filter">
+                               <label>
+                                 Search:
+                                 <input type="search" [(ngModel)]="rejectsearch"
+                                      (input)="onRejectSearch()"  class="" placeholder="" aria-controls="DataTables_Table_0">
+                                 </label>
+                               </div>
+                           </div>
+                           <table cellspacing="0" cellpadding="0"
+                                  class="table pmd-table table-hover table-bordered MB20">
+                             <!--[dtTrigger]="dtTrigger[1]"-->
+                             <tbody>
+                               <tr *ngFor="let comapany of rejectCompanylist">
+                                 <td class="companyName">
+                                   {{comapany.company_name}}
+
+                                    <a href="javascript:void(0);" data-target="#comment-dialog" (click)="getComment(comapany.id)" data-toggle="modal" class="pull-right marginR2 curPoi">
+                                       <i class="material-icons grayColor borderRound" >comment</i>
+                                     </a>
+                                     <a href="javascript:void(0);" (click)="onclickcompany(comapany.id, comapany.company_name,'Reject')"
+                                     class="pull-right marginR2 curPoi" > <i class="material-icons grayColor borderRound">info</i></a>
+                                 </td>
+                               </tr>
+                             </tbody>
+                           </table>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+                </div>
+                <div role="tabpanel" class ="tab-pane"  id="invitation">
+                    <div class="row noMargin">
+                        <div class="col-md-12">
+                          <div class="component-box">
+                           <!-- table card example -->
+                            <div class="pmd-card pmd-z-depth-1 shadow-demo pmd-card-custom-view">
+                              <div class="pmd-table-card">
+                                <div class="row noMargin">
+                                  <div class="col-xs-12">
+                                    <div class="col-sm-6 col-sm-offset-6 text-right">
+                                      
+                                          <button (click)="downloadInvitationCSV()" type="button" class="btn pmd-ripple-effect btn-success btn-csv">
+                                            Export
+                                          </button>
+                                          <button (click)="redirectToInvitation()" type="button" class="btn pmd-ripple-effect btn-success btn-csv">
+                                              Send Invitation
+                                            </button>
+                                    </div>
+                                    <table cellspacing="0" cellpadding="0"
+                                           class="table pmd-table table-hover table-bordered MB20">
+                                      <!--[dtTrigger]="dtTrigger[1]"-->
+                                      <thead>
+                                          <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Company </th>
+                                            <th>Phone Number</th>
+                                            <th>Event</th>
+                                            <th>Referrer </th>
+                                            <th>Invited On</th>
+                                            <th>Status</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr *ngFor="let dt of invitationList">
+                                          <td class="Name">  {{dt.name}} </td>
+                                          <td class="Email">{{dt.email}}</td>
+                                          <td class="Company">  {{dt.company}} </td>
+                                          <td class="Phone Number">{{dt.phone_number}}</td>
+                                          <td class="Event">  {{dt.event}} </td>
+                                          <td class="referrer">{{dt.referrer}}</td>
+                                          <td class="Invited On">  {{dt.invited_on}} </td>
+                                          <td class="Status">{{dt.status}}</td>
+                                          
+    
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+                <!-- End Rejected Company Tab -->
+              </div>
+            </div>
+          </div>
+          <!--Fixed tab example end-->
+
+        </div>
+      </div>
+      <!--end Today's Site Activity -->
+    </div>
+    <!-- Update Comapny Model  -->
+    <div tabindex="-1" class="modal fade" id="edit-dialog" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1>Company Details</h1>
+          </div>
+          <div class="modal-body">
+            <form  [formGroup]="EditCompanyForm">
+               <div class="row noMargin">
+                 <div class="uploadFileClass col-md-6 col-md-offset-3" *ngIf="!certificateView">
+                    <i class="material-icons md-dark pmd-md">file_upload</i>
+                    <h2>  Upload SSM Certificate </h2>
+                    <h4>  Upload your PDF, PNG, or JPEG file here </h4>
+                    <input type="file"  accept="image/png, image/jpeg, .pdf"  (change)="uploadSsm($event)" placeholder="Upload Image" id="upload-card">
+
+                      <label class="btn btn-primary PrimaryButton" for="upload-card"><i class="material-icons">file_upload</i></label>
+
+                </div>
+
+
+                <br>
+
+               <div class="uploadFileClass col-md-6 col-md-offset-3"  *ngIf="certificateView">
+                  <i class="material-icons md-dark pmd-md">insert_drive_file</i>
+                  <h2>
+
+                    <a href="{{certificate_url}}" target="blank" download > {{certificate_name}}</a>
+                  </h2>
+                  <input type="file"  accept="image/png, image/jpeg, .pdf"  (change)="uploadSsm($event)" placeholder="Upload Image" id="upload-card">
+                    <label class="btn btn-primary PrimaryButton" for="upload-card"><i class="material-icons">file_upload</i></label>
+               </div>
+
+            </div>
+            <div class="form-group">
+              <label for="inputError1" class="control-label">Company Registration Number</label>
+              <input type="text" name="(SSM)No" formControlName="CompanyRegistrationNumber"
+              placeholder="001234567-P or 123456-78-9876" class="form-control inputH" id="exampleInputAmount">
+              <div *ngIf="submitted && f.ssm_no.errors" class="invalid-feedback warning">
+                <div *ngIf="f.ssm_no.errors.required">Company Registration Number is required</div>
+              </div>
+          </div>
+
+              <div class="form-group">
+                <label class="control-label">Company Name</label>
+                <input type="text" formControlName="companyName"  name="companyName" placeholder="Acme Sdn Bhd"
+                       class="form-control inputH" id="exampleInputAmount">
+                <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.companyName.errors.required">Company Name No. is required</div>
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <label class="control-label">Company Address</label>
+                <input type="text" formControlName="CompanyAddress" name="CompanyAddress"  placeholder="Address line 1"
+                       class="form-control inputH" id="exampleInputAmount">
+                  <div *ngIf="submitted && f.CompanyAddress.errors" class="invalid-feedback warning">
+                      <div *ngIf="f.CompanyAddress.errors.required">Company Address is required</div>
+                  </div>
+              </div>
+              <input type="text" formControlName="CompanyAddress1" name="CompanyAddress1" placeholder="Address line 2"
+                     class="form-control inputH" id="exampleInputAmount">
+
+              <div class="form-group">
+                <label class="control-label">Area</label>
+                <input type="text" formControlName="area" name="area" placeholder="Bukit Jalil"
+                       class="form-control inputH" id="exampleInputAmount">
+                  <div *ngIf="submitted && f.area.errors" class="invalid-feedback warning">
+                      <div *ngIf="f.area.errors.required">Area is required</div>
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Postcode</label>
+                <input type="text" formControlName="Postcode" name="Postcode" placeholder="Postcode"
+                       class="form-control inputH" id="exampleInputAmount">
+                    <div *ngIf="submitted && f.Postcode.errors" class="invalid-feedback warning">
+                        <div *ngIf="f.Postcode.errors.required">Postcode is required</div>
+                    </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputError1" class="control-label">Country</label>
+                <select name="country" formControlName="country" class="inputH form-control" >
+                  <option *ngFor="let counter of countrylist" [ngValue]="counter.id">
+                    {{counter.country_name}}
+                  </option>
+                </select>
+                <div *ngIf="submitted && f.country.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.country.errors.required">Country is required</div>
+              </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">State</label>
+                <select name="state" formControlName="state"  class="form-control inputH" *ngIf="StateList != undefined">
+                  <option default value="0" disabled>Select State</option>
+                  <option *ngFor="let states of StateList" [ngValue]="states.id">{{states.state_name}}</option>
+                </select>
+                <div *ngIf="submitted && f.state.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.state.errors.required">State is required</div>
+              </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Company Website </label>
+                <input type="text" formControlName="CompanyWebsite" name="CompanyWebsite" placeholder="Company Website"
+                       class="form-control inputH" id="exampleInputAmount">
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">Job Position</label>
+                <input type="text" formControlName="job_position"  name="job_position" placeholder="Assistant human resource manager"
+                       class="form-control inputH" id="exampleInputAmount">
+                <div *ngIf="submitted && f.job_position.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.job_position.errors.required">Job Position is required</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">Primary Industry</label>
+                <select name="Industry" formControlName="Industry"  class="inputH form-control">
+                  <option default value="0" disabled>Select Industry</option>
+                  <option *ngFor="let industry of IndustryList" [ngValue]="industry.id">
+                    {{industry.industry_name}}
+                  </option>
+                </select>
+                <div *ngIf="submitted && f.Industry.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.Industry.errors.required">Industry is required</div>
+               </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Size Of Company</label>
+                <select name="SizeOfCompany"  formControlName="SizeOfCompany" class="inputH form-control">
+                  <option default value="0" disabled>Select Company Size</option>
+                  <option value="1">myself only</option>
+                  <option value="2-10">2-10</option>
+                  <option value="11-50">11-50</option>
+                  <option value="51-200">51-200</option>
+                  <option value="201-500">201-500</option>
+                  <option value="501-1,000">501-1,000</option>
+                  <option value="1,001-5,000">1,001-5,000</option>
+                  <option value="5,001-10,000">5,001-10,000</option>
+                  <option value="10,000+">10,000+</option>
+                </select>
+                <div *ngIf="submitted && f.SizeOfCompany.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.SizeOfCompany.errors.required">Size Of Company is required</div>
+               </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Company Category</label>
+                <select name="category_type"  formControlName="category_type" class="inputH form-control">
+                  <option  default value="0" disabled>Select Company Category</option>
+                  <option *ngFor="let category of categoryList" [ngValue]="category.value">
+                    {{category.text}}
+                  </option>
+                </select>
+                <div *ngIf="submitted && f.category_type.errors" class="invalid-feedback warning">
+                  <div *ngIf="f.category_type.errors.required">Category Type is required</div>
+               </div>
+              </div>
+
+              <div class="form-group">
+                  <label class="control-label">Company Admin</label>
+                  <input type="text" name="name" placeholder="Company Admin"
+                          class="form-control inputH" formControlName="name" id="exampleInputAmount">
+                      <div *ngIf="submitted && f.name.errors" class="invalid-feedback warning">
+                          <div *ngIf="f.name.errors.required">Company Admin is required</div>
+                      </div>
+              </div>
+              <div class="form-group">
+                    <label class="control-label">Email Address</label>
+                    <input type="email" name="email" placeholder="Company Email Address" id="contactemail"
+                           formControlName="email"  class="form-control inputH" id="exampleInputAmount">
+                           <div *ngIf="submitted && f.email.errors" class="invalid-feedback warning">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                          </div>
+                          <div *ngIf="submitted && f.email.errors" class="invalid-feedback warning">
+                            <div *ngIf="f.email.errors.pattern">Email should be in correct format</div>
+                          </div>
+
+              </div>
+              <div class="form-group">
+                  <label class="control-label">Phone Number</label>
+                  <input type="number" name="contact" placeholder="Company Phone Number"
+                          formControlName="contact" class="form-control inputH" id="exampleInputAmount">
+                    <div *ngIf="submitted && f.contact.errors" class="invalid-feedback warning">
+                        <div *ngIf="f.contact.errors.required">Phone Number is required</div>
+                    </div>
+             </div>
+            </form>
+            <div class="greenMsg">{{message}} </div>
+          </div>
+          <div class="pmd-modal-action text-right">
+            <button data-dismiss="modal" type="button" class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline"
+                    #closeAddExpenseModal>
+              DISCARD
+            </button>
+            <button (click)="updateCompanyData()" type="button" class="btn pmd-ripple-effect btn-success PrimaryButton">
+              SAVE
+              CHANGES
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+   <!-- Accept company model -->
+    <div tabindex="-1" class="modal fade" id="Accept-dialog" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+
+            <h2>Confirm accepting this company registration?</h2>
+          </div>
+          <div class="pmd-modal-action text-right">
+            <button data-dismiss="modal" type="button" class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline">
+              DISCARD
+            </button>
+            <button data-dismiss="modal" (click)="onactiveclick()" type="button" class="btn pmd-ripple-effect btn-success PrimaryButton">
+              SAVE
+              CHANGES
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Reject Company Model -->
+    <div tabindex="-1" class="modal fade" id="reject-dialog" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+
+            <h2>Are you sure you want to reject this company registration? This cannot be undone.</h2>
+          </div>
+          <div class="pmd-modal-action text-right">
+            <button data-dismiss="modal" type="button" class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline">
+              DISCARD
+            </button>
+            <button data-dismiss="modal" (click)="onRejectclick()" type="button" class="btn pmd-ripple-effect btn-success PrimaryButton">
+              SAVE
+              CHANGES
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  Comment box model-->
+    <div tabindex="-1" class="modal fade" id="comment-dialog"style="display: none"  aria-hidden="true">
+      <div class="modal-dialog modal-lg" >
+        <div class="modal-content">
+          <div class="modal-body">
+              <p>{{this.comName}}</p>
+            <ul class="list-group pmd-z-depth pmd-list pmd-card-list height60">
+            <div *ngIf="!commentsArray || commentsArray.length === 0">
+                    <p class="marginL2">No Comment</p>
+              </div>
+
+              <li class="list-group-item" *ngFor="let comments of commentsArray" >
+                <div class="media-body">
+                  <h3 class="list-group-item-heading"><b>{{comments.name}}</b> </h3>
+                  <p class="list-group-item-text text-dark">{{comments.message}}</p>
+                  <span class="list-group-item-text text-size">{{comments.created_att}}</span>
+                </div>
+              </li>
+
+            </ul>
+          </div>
+          <div class="pmd-modal-action">
+            <div class="row noMargin">
+              <div class="col-xs-12">
+                <div class="form-group">
+                  <label class="control-label">Comment</label>
+                  <textarea required="" class="form-control" [(ngModel)]="comment" name="comment" placeholder="Add comment for this company"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="text-right">
+              <button data-dismiss="modal" type="button" (click)="nullComId()" class="btn pmd-btn-flat pmd-ripple-effect btn-danger secondaryOutline">
+                DISCARD
+              </button>
+              <button  type="button" (click)="addComment()" class="btn pmd-ripple-effect btn-success PrimaryButton">
+                Post
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!--end content area-->

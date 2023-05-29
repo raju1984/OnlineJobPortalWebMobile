@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar color="danger">
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()" clear>
+        <ion-icon name="close" color="light"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title><small>{{wowList?.length}} people Wow at this Jobtiviti </small></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list class="comment" *ngFor="let wow of wowList" no-margin>
+    <ion-item no-padding>
+      <ion-avatar item-start>
+        <img [src]="wow?.photo ? wow?.photo : '../assets/imgs/user.jpg'" />
+      </ion-avatar>
+      <ion-grid no-padding>
+        <ion-row>
+          <ion-col col-8>
+            <p padding-left text-wrap>
+              {{ wow.name }}
+            </p>
+          </ion-col>
+          <!--<ion-col col-4>
+            <p float-end>
+              <button ion-button small outline>following</button>
+            </p>
+          </ion-col>-->
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+  <!--<ion-list class="comment">
+    <ion-item no-padding>
+      <ion-row>
+        <ion-col col-2>
+          <ion-avatar item-start>
+            <img />
+          </ion-avatar>
+        </ion-col>
+        <ion-col col-10>
+          <p class="commenttyped">
+            <b>{{ wow.name }} </b>
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>-->
+</ion-content>

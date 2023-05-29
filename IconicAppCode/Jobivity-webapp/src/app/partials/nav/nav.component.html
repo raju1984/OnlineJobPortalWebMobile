@@ -1,0 +1,247 @@
+<!--Start Nav bar -->
+<style>
+  body {
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .navbar-brand img {
+    width: 120px;
+    padding: 10px 0;
+  }
+
+  .nav-tabs li.active a {
+    background: #fff;
+    color: #4285f4;
+  }
+
+  .table-inverse a {
+    color: #fff !important;
+  }
+
+  .table-active {
+    background: #cccccc !important;
+    color: #000 !important;
+  }
+
+
+  .navbar-inverse {
+    background-color: #273677;
+    border-color: snow;
+    box-shadow: none;
+    border: none;
+  }
+
+  .pmd-content {
+    margin-left: 0;
+  }
+
+  #content {
+    padding: 0;
+  }
+
+  .spaveTop {
+    background: url(assets/images/bg4.png);
+    background-size: 100% 100%;
+    padding-top: 30px;
+  }
+
+  .padding15 {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .marginT30 {
+    margin-top: 30px
+  }
+
+  .pmd-z-depth-2 {
+    border-radius: 4px;
+  }
+
+  .pmd-z-depth-2 h5 {
+    line-height: 1.5;
+  }
+
+  .text-muted {
+    color: #b1b5b8;
+  }
+
+  .btn {
+    text-transform: capitalize;
+  }
+
+  a.post-time {
+    color: #337ab7;
+  }
+
+  a.post-time:hover {
+    color: #23527c;
+    text-decoration: underline;
+  }
+
+  h5 {
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .list-group-item hr {
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+
+  .text-primary {
+    color: #5c7ce3;
+  }
+
+  .text-warning {
+    color: #ebb041;
+  }
+
+  .TalentsList .list-group-item p {
+    white-space: nowrap;
+  }
+
+  .noUi-base {
+    margin-top: -25px;
+  }
+
+  .media-right p {
+    text-align: left;
+  }
+
+  .paddingLR30 {
+    padding: 0 30px !important;
+  }
+
+  .admin-footer {
+    background: #000;
+  }
+
+  .text-white {
+    color: #fff !important;
+  }
+
+  .pmd-range-slider .noUi-handle:before {
+    border: 2px solid #5c7ce3;
+    background: #ffffff;
+  }
+
+  .navbar {
+    margin: 0 !important;
+  }
+
+  .notification a.dropdown-toggle {
+    color: #fff;
+    line-height: 1.3;
+    text-transform: capitalize;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  .icon-check {
+    vertical-align: middle;
+    font-size: 16px;
+  }
+
+  .notification .list-group-item:hover {
+    background: #f27e9d;
+  }
+
+  .notification .list-group-item a:hover,
+  .notification .list-group-item a:focus,
+  .notification .list-group-item:hover a,
+  .notification .list-group-item:focus a {
+    color: #ffffff;
+    background: transparent;
+  }
+</style>
+<nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth">
+
+  <div class="container-fluid">
+    <ul class="nav navbar-nav navbar-right">
+      <!-- <li>
+        <a href="javascript:void(0)" class="walletClass" (click)="reviewCredit()">
+          <i class="material-icons">account_balance_wallet</i> 
+          <span > {{totalCredit | number}} Credits</span>
+        
+        </a>
+        </li> -->
+      <li><a href="javascript:void(0)" (click)=" onIconClick()"><i class="material-icons  pmd-md">home</i></a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle pmd-ripple-effect" data-toggle="dropdown" role="button" aria-haspopup="true"
+          aria-expanded="false">
+          <span class="pull-left text-right">
+            {{name}}<br />
+            <small class="marginR20">{{companyName}}
+
+              <!-- <div *ngIf="flag;then content else other_content">here is ignored</div>
+              <ng-template #other_content><i class="material-icons icon-check">check_circle</i></ng-template>
+              <ng-template #content>
+                <span tooltip tooltip-left
+                  tooltip-content="Your account and company are not verified and potential talent will not see your company. If you have not received a call within one business day after registration, please kindly email us at employer@jobtiviti.com"><i
+                    class="material-icons icon-check">warning</i></span>
+              </ng-template> -->
+            </small>
+
+          </span>
+          <div class="material-icons md-light pmd-md pmd-badge pull-right pmd-badge-overlap">
+            more_vert
+          </div>
+        </a>
+        <div *ngIf="flag;then content else other_content">here is ignored</div>
+        <ng-template #content><i class="material-icons icon-check iconVerifiedCompany">check_circle</i>
+        </ng-template>
+        <ng-template #other_content>
+          <span tooltip tooltip-left>
+            <i class="material-icons icon-check">warning</i>
+            <span class="tooltip-content">Your account and company are not verified and potential talent will not see
+              your company. If you have not received a call within one business day after registration, please kindly
+              email us at employer@jobtiviti.com</span>
+          </span>
+        </ng-template>
+        <ul class="dropdown-menu">
+          <li>
+            <a href="javascript:void(0)" (click)="editProfile()">Edit Profile
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" (click)="editCompanyProfile()">Edit Company Profile</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" (click)="changePassword()">Change Password</a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" (click)="LogOut()">Logout</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a href="javascript:void(0)" class="navbar-brand">
+        <img src="{{url}}" alt="">
+        <!--<img src="assets/images/logo-white.png" alt="">-->
+      </a>
+      <!-- <span style="color:white;position:relative;left:-10px;top:10px;font-size:0.5em;">BETA</span> -->
+    </div>
+  </div>
+
+</nav>
+<!--End Nav bar -->
+<!--<div class="container-fluid">
+  <div class="pmd-navbar-right-icon pull-right navigation">
+    <div class="dropdown notification icons pmd-dropdown">
+
+      <a class="logout" style="margin:20px 0; font-size: 1em;cursor: pointer;border: 1px solid;padding: 5px;"
+        (click)="LogOut()">Logout</a>
+
+    </div>
+  </div>
+
+<div class="navbar-header">
+
+  <a href="javascript:void(0);" data-target="basicSidebar" data-placement="left" data-position="slidepush" is-open="true" is-open-width="1200" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect pull-left margin-r8 pmd-sidebar-toggle"><i class="material-icons md-light">menu</i></a>
+  <a (click)="onIconClick()" class="navbar-brand">
+    <img style="width:40px" src="{{url}}" alt="Logo">
+  </a>
+</div>
+</div>-->
